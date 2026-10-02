@@ -4,8 +4,8 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3000;
 const root = path.join(__dirname, "public");
-const INVOICE_API_BASE_URL = (process.env.INVOICE_API_BASE_URL || "https://invoice.fbigh.com").replace(/\\/+$/, "");
-const FILES_API_BASE_URL = (process.env.FILES_API_BASE_URL || "https://files.fbigh.com").replace(/\\/+$/, "");
+const INVOICE_API_BASE_URL = (process.env.INVOICE_API_BASE_URL || "https://invoice.fbigh.com").replace(/\/+$/, "");
+const FILES_API_BASE_URL = (process.env.FILES_API_BASE_URL || "https://files.fbigh.com").replace(/\/+$/, "");
 const FBI_ADMIN_SHARED_TOKEN = String(process.env.FBI_ADMIN_SHARED_TOKEN || "");
 
 
