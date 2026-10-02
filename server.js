@@ -29,6 +29,7 @@ const server = http.createServer((req, res) => {
   }
 
   if (pathname === "/") pathname = "/index.html";
+  if (pathname === "/admin" || pathname === "/admin/") pathname = "/admin/index.html";
 
   const file = path.normalize(path.join(root, pathname));
   if (!file.startsWith(root)) {
