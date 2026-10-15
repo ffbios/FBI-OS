@@ -1,0 +1,36 @@
+name: Package FBI Website Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "public/**"
+      - "server.js"
+      - "package.json"
+      - "ecosystem/**"
+      - "lib/**"
+      - ".github/workflows/package-website.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  package-website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the released website
+        uses: actions/checkout@v4
+
+      - name: Package complete website source
+        run: |
+          zip -qr FBI-Website-Release.zip \
+            public server.js package.json ecosystem lib docs README.md
+
+      - name: Publish downloadable ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: FBI-Website-Release
+          path: FBI-Website-Release.zip
+          if-no-files-found: error
+          retention-days: 30
