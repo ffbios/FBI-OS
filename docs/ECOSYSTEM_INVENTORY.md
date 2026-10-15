@@ -51,9 +51,9 @@ The separate project has one staged-only service creation and no deployed servic
 ### Admin Hub snapshot routes
 The `main` branch's `/api/admin/invoice-snapshot` and `/api/admin/files-snapshot` routes use a shared upstream token but do not enforce a server-verified administrator session before serving the proxy request. The variable names are present in Railway's configuration listing, but values were not inspected. Treat this as a potential data-exposure issue until the mitigation is deployed.
 
-The `ecosystem-foundation` branch disables both snapshot routes with HTTP 503 while secure server-side authorization is built. **This is not live in production until an approved merge/deployment.** The branch also adds a read-only system registry endpoint that exposes only application names, purposes and canonical URLs.
+The `ecosystem-foundation` branch implements server-side session authentication, role checks, CSRF validation for logout, login throttling, and sanitized audit events. Both snapshot routes require a session with `admin:read` permission and still return HTTP 503 until the downstream API contracts are implemented. **This is not live in production until an approved merge/deployment.** The branch also adds a public read-only system registry and authenticated timestamped health checks.
 
-The Admin Hub login uses `localStorage` / `sessionStorage` for its account and session marker. This is not sufficient for protecting sensitive operational data. The updated branch labels the gate as browser-local and limits the Hub to system navigation; it must not be treated as the ecosystem's identity provider.
+The Admin Hub no longer relies on localStorage/sessionStorage for identity. It validates accounts from the protected `FBI_HQ_USERS_JSON` deployment variable and stores random opaque sessions in server memory. Sessions are invalidated on restart or deployment, so keep the service to one replica until a shared store is implemented. This Hub authentication is not single sign-on for the other apps.
 
 ## 4. Observations still to collect
 
