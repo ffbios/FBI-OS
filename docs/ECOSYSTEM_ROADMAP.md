@@ -15,7 +15,8 @@ Stabilize and secure first, then connect workflows. Do not replace working appli
 - [x] Record observed domains and the latest deployment states.
 - [x] Identify production staged changes and keep them unapplied.
 - [x] Identify the separate Invoice Staff Portal as a protected existing service.
-- [ ] Review and mitigate unauthenticated Admin Hub snapshot proxy routes.
+- [x] Disable both unauthenticated snapshot proxy routes in `ecosystem-foundation` with HTTP 503 pending server-side authorization.
+- [ ] Review the branch and deploy the mitigation through an approved release; production is unchanged until then.
 - [ ] Inspect the full pending Client File Studio production patch before any acceptance.
 - [ ] Diagnose Driver Daily Profit's crashed application service.
 - [ ] Investigate the crashed FBI Admin Postgres deployment and determine dependencies.
