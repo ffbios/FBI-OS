@@ -66,14 +66,14 @@ The diagram describes the intended direction, not a claim that the connections a
 
 The current FBI Admin Hub sign-in state is stored in browser local storage/session storage. That can provide a local UI gate, but it is not a reliable identity system: users can create independent browser-side accounts, and it does not establish a server-verified administrator identity.
 
-The main branch's server-to-server snapshot proxy routes for Invoice Studio and Client File Studio check for a configured shared token but do not establish an authenticated administrator session before relaying snapshots. The relevant variable names are present in Railway configuration (values were not read). The `ecosystem-foundation` working branch now returns HTTP 503 from both public proxy routes until server-side authentication and authorization are implemented. This mitigation is branch-only; production remains unchanged until an approved release.
+The main branch's server-to-server snapshot proxy routes for Invoice Studio and Client File Studio check for a configured shared token but do not establish an authenticated administrator session before relaying snapshots. The relevant variable names are present in Railway configuration (values were not read). The `ecosystem-foundation` working branch now enforces server-verified sessions and role checks on both proxy routes before returning HTTP 503 while the downstream API contracts are unfinished. This mitigation is branch-only; production remains unchanged until an approved release.
 
 **Required before operational data is shown in the hub:**
-- Server-verified sign-in with a durable user directory.
-- Secure, HTTP-only, SameSite cookies and session rotation.
-- CSRF protection for state-changing requests.
+- Server-verified sign-in with a protected deployment-configured user directory. A durable database-backed account directory and account-management UI remain future work.
+- Random opaque HttpOnly/SameSite cookies, session revocation and an eight-hour expiry. Sessions currently live in process memory and require one replica until a shared session store is added.
+- Same-origin validation for login/logout and a CSRF token requirement for logout.
 - Server-enforced role/permission checks on every protected route.
-- Rate limiting, login attempt controls, session revocation, and audit logging.
+- In-memory login throttling, session revocation, and sanitized audit events. A shared rate-limit store is required before scaling.
 - No secrets in browser code, local storage, repository files, or API responses.
 - Server-to-server integration credentials scoped to the minimum required routes.
 - Temporary disablement of snapshot routes until authenticated access is enforced and tested.
