@@ -49,9 +49,11 @@ The production environment has a staged patch with 29 changes, including a stage
 The separate project has one staged-only service creation and no deployed service in the observed environment inventory. The deployed `FBI TV Playout` service is in the Client File Studio project. Decide whether the separate project is needed before applying its staged service creation.
 
 ### Admin Hub snapshot routes
-The current FBI-OS server has `/api/admin/invoice-snapshot` and `/api/admin/files-snapshot` proxy routes. They check whether `FBI_ADMIN_SHARED_TOKEN` is configured and pass it to their upstreams, but do not enforce a server-verified administrator session before serving the proxy request. The variable names are present in Railway's configuration listing, but their values were not inspected. Treat this as a potential data-exposure issue until it is validated and mitigated.
+The `main` branch's `/api/admin/invoice-snapshot` and `/api/admin/files-snapshot` routes use a shared upstream token but do not enforce a server-verified administrator session before serving the proxy request. The variable names are present in Railway's configuration listing, but values were not inspected. Treat this as a potential data-exposure issue until the mitigation is deployed.
 
-The Admin Hub login uses `localStorage` / `sessionStorage` for its account and session marker. This is not sufficient for protecting sensitive operational data. It must not be treated as the ecosystem's identity provider.
+The `ecosystem-foundation` branch disables both snapshot routes with HTTP 503 while secure server-side authorization is built. **This is not live in production until an approved merge/deployment.** The branch also adds a read-only system registry endpoint that exposes only application names, purposes and canonical URLs.
+
+The Admin Hub login uses `localStorage` / `sessionStorage` for its account and session marker. This is not sufficient for protecting sensitive operational data. The updated branch labels the gate as browser-local and limits the Hub to system navigation; it must not be treated as the ecosystem's identity provider.
 
 ## 4. Observations still to collect
 
