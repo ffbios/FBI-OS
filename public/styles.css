@@ -774,3 +774,38 @@ body,.inner-page{background:#080808;color:#f4f1e9;font-family:var(--body)}
  .home-hero .hero-bottomline>span:nth-child(2){display:none}
  .home-hero .hero-bottomline a{margin-left:auto;font-size:8px}
 }
+/* Fixed color values keep the approved light hero intact under the dark inner-page theme. */
+.home-hero .hero-copy-panel{background:#fffefa;color:#151719}
+.home-hero h1{color:#151719}
+.home-hero .hero-copy-inner>.eyebrow{color:#957321}
+.home-hero .hero-copy{color:#5d6163}
+.home-hero .hero-live-link{background:#fff;color:#151719}
+.home-hero .hero-live-link small{color:#757779}
+.home-hero .hero-live-arrow{color:#e53232}
+@media(max-width:1150px){
+ .site-header{height:78px}
+ .nav-shell{width:calc(100% - 38px);gap:13px}
+ .brand{min-width:auto;margin-right:auto}
+ .nav-toggle{display:flex;order:3;width:41px;height:41px;flex-direction:column;justify-content:center;align-items:center;gap:6px;border:1px solid #4b4c4d;background:transparent;cursor:pointer}
+ .nav-toggle span{width:19px;height:1px;background:#f7f5f0;transition:transform .2s}
+ .nav-toggle[aria-expanded=true] span:first-child{transform:translateY(3.5px) rotate(45deg)}
+ .nav-toggle[aria-expanded=true] span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+ .nav-links{display:none;position:absolute;left:0;right:0;top:77px;margin:0;padding:15px 30px 25px;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 22px;background:rgba(16,17,18,.99);border-bottom:1px solid #343637}
+ .nav-links.open{display:grid}
+ .nav-links a{padding:13px 0;border-bottom:1px solid #303132;font-size:10px}
+ .nav-links a:after{display:none}
+ .nav-actions{order:2}
+}
+@media(max-width:760px){
+ .site-header{height:70px}
+ .nav-shell{width:calc(100% - 22px);gap:7px}
+ .brand{gap:6px}
+ .brand-logo{width:78px;height:43px}
+ .brand-wordmark{font-size:7px;letter-spacing:.1em}
+ .nav-actions{gap:7px}
+ .watch-tv{min-height:39px;padding:0 9px;font-size:8px;letter-spacing:.05em;gap:7px}
+ .header-cta{min-height:39px;padding-inline:9px;font-size:8px;letter-spacing:.03em}
+ .nav-toggle{width:35px;height:37px}
+ .nav-links{top:69px;padding:10px 19px 20px;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+ .nav-links a{font-size:9px}
+}
