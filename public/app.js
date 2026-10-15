@@ -1,6 +1,12 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Preserve the old homepage live URL while Live has its own page.
+  if (window.location.pathname === "/" && window.location.hash === "#live") {
+    window.location.replace("/live.html");
+    return;
+  }
+
   const year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
 
