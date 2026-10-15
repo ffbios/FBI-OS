@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-15",
+  "purpose": "Canonical navigation and ownership registry for the FBI digital ecosystem. This file is configuration, not a live health feed.",
+  "statusPolicy": "Do not infer runtime health from this registry. Obtain health from timestamped server-side checks; treat missing or stale checks as Unknown.",
+  "systems": [
+    {
+      "id": "corporate-website",
+      "name": "FBI GH Website",
+      "category": "Public",
+      "url": "https://fbigh.com/",
+      "repository": "ffbios/FBI-OS",
+      "purpose": "Public company information and service discovery",
+      "dataAuthority": "Public company content"
+    },
+    {
+      "id": "invoice-studio",
+      "name": "Invoice Studio",
+      "category": "Business Operations",
+      "url": "https://invoice.fbigh.com/",
+      "repository": "ffbios/fbi-invoice-studio-cloud",
+      "purpose": "Quotes, invoices, receipts and existing invoicing operations",
+      "dataAuthority": "Invoice Studio PostgreSQL and protected application APIs"
+    },
+    {
+      "id": "invoice-staff-portal",
+      "name": "Invoice Staff Portal",
+      "category": "Staff",
+      "url": "https://fbi-staff-invoice-portal-production.up.railway.app/",
+      "repository": "ffbios/fbi-invoice-studio-cloud",
+      "purpose": "Existing staff access to assigned payroll and payslip functions",
+      "dataAuthority": "Existing Invoice Studio staff/payroll records",
+      "changePolicy": "Protected existing service; do not alter in the initial ecosystem phase"
+    },
+    {
+      "id": "client-file-studio",
+      "name": "Client File Studio",
+      "category": "Creative Services",
+      "url": "https://files.fbigh.com/portal",
+      "repository": "ffbios/ffbios-fbi-client-file-studio",
+      "purpose": "Creative projects, file sharing and client delivery",
+      "dataAuthority": "Client File Studio PostgreSQL and private object storage"
+    },
+    {
+      "id": "fbi-live",
+      "name": "FBI Live Studio",
+      "category": "Broadcasting",
+      "url": "https://live.fbigh.com/",
+      "repository": "ffbios/ffbios-fbi-client-file-studio",
+      "purpose": "Live streaming control, ingest and playback",
+      "dataAuthority": "Live streaming services and associated stream state"
+    },
+    {
+      "id": "fbi-tv",
+      "name": "FBI TV",
+      "category": "Broadcasting",
+      "url": "https://live.fbigh.com/tv",
+      "repository": "ffbios/ffbios-fbi-client-file-studio",
+      "purpose": "Public TV and playout entry point",
+      "dataAuthority": "Current viewer/playout implementation; dedicated Railway project requires review"
+    },
+    {
+      "id": "it-command-center",
+      "name": "IT Command Center",
+      "category": "Technical Operations",
+      "url": "https://it-command-center-production-7f71.up.railway.app/",
+      "repository": "ffbios/fbi-it-command-center",
+      "purpose": "Client sites, installations, equipment, incidents, maintenance and monitoring",
+      "dataAuthority": "IT Command Center PostgreSQL"
+    },
+    {
+      "id": "salary-sheet",
+      "name": "Salary Sheet",
+      "category": "Business Operations",
+      "url": "https://salary-sheet-production.up.railway.app/",
+      "repository": "ffbios/salary-sheet",
+      "purpose": "Salary-sheet workflow",
+      "dataAuthority": "Current Salary Sheet implementation; must be reconciled with Invoice Studio payroll before linking records"
+    },
+    {
+      "id": "driver-daily-profit",
+      "name": "Driver Daily Profit",
+      "category": "Business Operations",
+      "url": "https://driver-daily-profit-app-production.up.railway.app/",
+      "repository": null,
+      "purpose": "Daily driver earnings, fuel, app fees and maintenance",
+      "dataAuthority": "Driver Daily Profit database once the crashed application service is restored and verified",
+      "availabilityNote": "Deployment metadata reported the app service as crashed on 2026-10-07; this registry does not claim it is currently healthy"
+    }
+  ]
+}
