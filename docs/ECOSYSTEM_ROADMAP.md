@@ -15,7 +15,7 @@ Stabilize and secure first, then connect workflows. Do not replace working appli
 - [x] Record observed domains and the latest deployment states.
 - [x] Identify production staged changes and keep them unapplied.
 - [x] Identify the separate Invoice Staff Portal as a protected existing service.
-- [x] Disable both unauthenticated snapshot proxy routes in `ecosystem-foundation` with HTTP 503 pending server-side authorization.
+- [x] Disable both unauthenticated snapshot proxy routes in `ecosystem-foundation`, then add server-side session and role checks before the routes return HTTP 503 pending upstream API contracts.
 - [ ] Review the branch and deploy the mitigation through an approved release; production is unchanged until then.
 - [ ] Inspect the full pending Client File Studio production patch before any acceptance.
 - [ ] Diagnose Driver Daily Profit's crashed application service.
@@ -28,12 +28,12 @@ Stabilize and secure first, then connect workflows. Do not replace working appli
 
 **Goal:** Convert the current Admin Hub into a trustworthy ecosystem entry point.
 
-- Replace browser-only account setup and session markers with server-verified authentication.
-- Add server-side roles and permissions, starting with Super Administrator, Administrator, Manager and Read-Only Viewer. Map actions explicitly rather than relying on visual hiding.
-- Add secure cookie sessions, CSRF protection, login throttling, audit events, session revocation and safe account recovery.
-- Disable operational snapshot proxy routes until authorization checks are enforced.
-- Use a registry for canonical links, owners, service purpose, environment, deployment evidence and health-check URL.
-- Add a system status panel with **Healthy / Degraded / Unavailable / Unknown / Attention required** states, each timestamped.
+- [x] Replace browser-only account setup and session markers with server-verified authentication in the working branch. Accounts are provisioned through the protected deployment variable.
+- [x] Add server-side roles and permission checks for Super Administrator, Administrator, Manager and Read-Only Viewer. Account-management endpoints remain future work.
+- [x] Add HttpOnly/SameSite cookies, same-origin validation, CSRF protection for logout, failed-login throttling, session revocation and sanitized audit events. Shared session storage and account-recovery workflow remain future work.
+- [x] Enforce `admin:read` authorization on invoice/file snapshot routes; keep upstream snapshot delivery disabled until contracts and field permissions are reviewed.
+- [x] Add a versioned registry for canonical links, ownership, purposes and explicit health URLs. Live deployment-history integration is still pending.
+- [x] Add timestamped **Healthy / Degraded / Unavailable / Unknown** health states and show known deployment issues as operational notes. Live deployment-history integration is still pending.
 - Keep the portal read-only at first. It should not edit invoices, payments, staff, file entitlements, installations or deployment settings.
 
 **Exit criteria:** unauthenticated users cannot read administrative summaries; route-level authorization tests pass; a failed upstream becomes Unknown/Unavailable instead of a false green status; direct links open the intended existing applications.
@@ -42,9 +42,9 @@ Stabilize and secure first, then connect workflows. Do not replace working appli
 
 **Goal:** Report what is true now, not what was true at the last deploy.
 
-- Verify health endpoints and dependency checks for each app.
-- Use server-side polling with short timeouts, bounded concurrency, and no secret leakage.
-- Record check time, latency, status and sanitized error category.
+- [ ] Verify health endpoint behavior and critical dependencies for every registered app. Initial verified probe URLs are configured for six systems; the rest remain Unknown.
+- [x] Add server-side concurrent polling with a 4.5-second timeout, response-size limits, no redirect following and sanitized errors.
+- [x] Record check time, response latency, status and a sanitized reason.
 - Add a deployment history panel sourced from trusted deployment metadata; distinguish deployment success from runtime health.
 - Alert on sustained failure, not on a single transient timeout.
 - Add backup freshness and last successful restore evidence as separate indicators from application health.
