@@ -25,6 +25,8 @@ jobs:
         run: |
           node --check server.js
           node --check public/admin/app.js
+      - name: Run authentication and HTTP security tests
+        run: npm test
       - name: Validate ecosystem registry
         run: |
           node --input-type=commonjs -e '
