@@ -54,7 +54,7 @@ function login(message = "") {
   currentUser = null;
   csrfToken = "";
   app.innerHTML = `<div class="auth"><section class="auth-card">
-    <div class="brand"><div class="mark">FBI</div><div><strong>FBI Digital HQ</strong><small>Film Beyond Imagination</small></div></div>
+    <div class="brand"><img class="brand-logo" src="/assets/fbi-official-logo.svg" alt="FBI — Film Beyond Imagination"><div class="brand-platform"><strong>Digital HQ</strong><small>Secure ecosystem portal</small></div></div>
     <h1>Secure sign in</h1>
     <p class="muted">Use the account assigned to you by the FBI system administrator. Accounts are managed server-side. Public registration and browser-based password recovery are disabled.</p>
     <form id="loginForm" autocomplete="on">
@@ -200,7 +200,7 @@ async function renderDashboard() {
   await loadRegistry();
   const roleLabel = currentUser?.roleLabel || currentUser?.role || "Authenticated user";
   app.innerHTML = `<div class="top">
-    <div class="brand"><div class="mark">FBI</div><div><strong>FBI Digital HQ</strong><small>Film Beyond Imagination</small></div></div>
+    <div class="brand"><img class="brand-logo" src="/assets/fbi-official-logo.svg" alt="FBI — Film Beyond Imagination"><div class="brand-platform"><strong>Digital HQ</strong><small>Secure ecosystem portal</small></div></div>
     <div class="top-actions"><span class="user-badge"><strong>${esc(roleLabel)}</strong><small>${esc(currentUser?.email || "")}</small></span><button class="signout" id="logoutButton">Sign out</button></div>
   </div>
   <main class="content">
