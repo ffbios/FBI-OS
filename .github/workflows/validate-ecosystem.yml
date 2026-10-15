@@ -44,6 +44,12 @@ jobs:
                 const url = new URL(system.url);
                 if (url.protocol !== "https:") throw new Error("System URL must use HTTPS: " + system.id);
               }
+              if (system.healthUrl) {
+                const url = new URL(system.healthUrl);
+                const host = url.hostname.toLowerCase();
+                const allowed = host === "fbigh.com" || host.endsWith(".fbigh.com") || host.endsWith(".up.railway.app");
+                if (url.protocol !== "https:" || !allowed || url.username || url.password || url.hash) throw new Error("Unsafe health URL for system: " + system.id);
+              }
             }
             console.log("Validated " + registry.systems.length + " ecosystem systems.");
           '
