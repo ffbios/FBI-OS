@@ -1,10 +1,4 @@
 const KEY="fbi_admin_account_v1";const SESSION="fbi_admin_session_v1";
-const modules=[
- {name:"Invoice Studio",desc:"Invoices, receipts, catalog and invoicing operations.",url:"https://invoice.fbigh.com/"},
- {name:"Client Files Studio",desc:"Client file sharing, uploads, downloads and delivery.",url:"https://fbi-client-file-studio-production.up.railway.app/"},
- {name:"IT Command Center",desc:"Installation monitoring, client locations and technical operations.",url:"#"},
- {name:"Management",desc:"Private management and operational administration.",url:"#"}
-];
 const qs=[
  "What was the name of your first school?",
  "What city were you born in?",
