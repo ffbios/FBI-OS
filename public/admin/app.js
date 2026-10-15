@@ -1,57 +1,228 @@
-const KEY="fbi_admin_account_v1";const SESSION="fbi_admin_session_v1";
-const qs=[
- "What was the name of your first school?",
- "What city were you born in?",
- "What was your childhood nickname?",
- "What was the name of your first pet?"
-];
-const app=document.getElementById("app");
-const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-async function digest(value){const data=new TextEncoder().encode(value);const buf=await crypto.subtle.digest("SHA-256",data);return [...new Uint8Array(buf)].map(x=>x.toString(16).padStart(2,"0")).join("")}
-function account(){try{return JSON.parse(localStorage.getItem(KEY)||"null")}catch{return null}}
-function session(){return sessionStorage.getItem(SESSION)==="1"}
-let modules = [];
+"use strict";
 
-async function loadModules() {
+const app = document.getElementById("app");
+let currentUser = null;
+let csrfToken = "";
+let systems = [];
+let healthById = {};
+let healthCheckedAt = null;
+let healthLoading = false;
+
+const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+}[char]));
+
+function ghTime(value) {
+  if (!value) return "Not checked";
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return "Time unavailable";
+  return new Intl.DateTimeFormat("en-GH", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Africa/Accra"
+  }).format(date) + " GMT";
+}
+
+async function requestJson(url, options = {}) {
+  const response = await fetch(url, {
+    credentials: "same-origin",
+    cache: "no-store",
+    ...options,
+    headers: {
+      ...(options.headers || {}),
+      ...(options.body && !((options.headers || {})["Content-Type"]) ? { "Content-Type": "application/json" } : {})
+    }
+  });
+  let data = {};
+  try { data = await response.json(); } catch {}
+  return { response, data };
+}
+
+async function loadCurrentSession() {
   try {
-    const response = await fetch("/api/ecosystem/registry", { cache: "no-store" });
-    if (!response.ok) throw new Error("Registry unavailable");
-    const registry = await response.json();
-    modules = Array.isArray(registry.systems) ? registry.systems : [];
+    const { response, data } = await requestJson("/api/auth/me");
+    if (!response.ok || !data.ok || !data.user) return false;
+    currentUser = data.user;
+    csrfToken = data.csrfToken || "";
+    return true;
   } catch {
-    modules = [];
+    return false;
   }
 }
 
-async function shell() {
-  await loadModules();
-  app.innerHTML = `<div class="top"><div class="brand"><div class="mark">FBI</div><div><strong>FBI Digital HQ</strong><small>Film Beyond Imagination</small></div></div><button class="signout" id="out">Sign out</button></div>
-  <main class="content">
-    <div class="hero"><div><div class="muted">SYSTEM DIRECTORY</div><h1>FBI Digital HQ</h1><p class="muted">A central entry point for the separate FBI business and production systems.</p></div><span class="status">Browser-local preview gate</span></div>
-    <div class="grid">${modules.length ? modules.map((m,i)=>`<article class="card"><div class="num">${String(i+1).padStart(2,"0")} · ${esc(m.category || "SYSTEM")}</div><h3>${esc(m.name)}</h3><p>${esc(m.purpose || "")}</p>${m.availabilityNote ? `<p class="module-note"><strong>Attention required:</strong> ${esc(m.availabilityNote)}</p>` : ""}<div class="actions">${m.url ? `<button class="btn gold" data-open="${esc(m.url)}">Open system</button>` : `<span class="muted">No URL configured</span>`}</div></article>`).join("") : `<article class="card"><h3>System registry unavailable</h3><p>The directory could not load its system registry. No live status is being inferred.</p></article>`}</div>
-    <div class="section-title">Operational data access</div>
-    <div class="admin-box"><h2>Cross-system snapshots are paused</h2><p class="muted">Invoice and file-delivery summaries will remain disabled until server-side administrator authentication and role checks are implemented. This prevents the hub from relaying private business data through a public endpoint.</p></div>
-    <div class="section-title">Access control notice</div>
-    <div class="admin-box"><h2>Local directory access only</h2><p class="muted">This sign-in gate is stored in this browser and is not a server-verified identity system. Each application must continue enforcing its own authentication. Do not use this gate to protect confidential records.</p><button class="btn ghost" id="resetAccount">Reset local access gate</button></div>
-  </main>`;
-  document.querySelectorAll("[data-open]").forEach(b => b.onclick = () => {
-    const u = b.dataset.open;
-    if (u) window.open(u, "_blank", "noopener,noreferrer");
-  });
-  document.getElementById("out").onclick = () => { sessionStorage.removeItem(SESSION); render(); };
-  document.getElementById("resetAccount").onclick = () => {
-    if (confirm("Remove this browser's local directory access gate?")) {
-      localStorage.removeItem(KEY);
-      sessionStorage.removeItem(SESSION);
-      render();
+function login(message = "") {
+  currentUser = null;
+  csrfToken = "";
+  app.innerHTML = `<div class="auth"><section class="auth-card">
+    <div class="brand"><div class="mark">FBI</div><div><strong>FBI Digital HQ</strong><small>Film Beyond Imagination</small></div></div>
+    <h1>Secure sign in</h1>
+    <p class="muted">Use the account assigned to you by the FBI system administrator. Accounts are managed server-side. Public registration and browser-based password recovery are disabled.</p>
+    <form id="loginForm" autocomplete="on">
+      <div class="field"><label for="email">Work email</label><input id="email" name="email" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" required></div>
+      <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+      <button class="btn gold full" type="submit" id="loginButton">Sign in</button>
+      <div id="loginError" class="error" role="alert">${esc(message)}</div>
+    </form>
+    <p class="login-note">Your session is verified by the server. This browser does not store your password.</p>
+  </section></div>`;
+
+  document.getElementById("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const button = document.getElementById("loginButton");
+    const error = document.getElementById("loginError");
+    button.disabled = true;
+    button.textContent = "Verifying…";
+    error.textContent = "";
+    try {
+      const { response, data } = await requestJson("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: String(form.get("email") || "").trim(),
+          password: String(form.get("password") || "")
+        })
+      });
+      if (!response.ok || !data.ok) {
+        error.textContent = data.error || "Sign-in failed. Check your credentials or contact the system administrator.";
+        button.disabled = false;
+        button.textContent = "Sign in";
+        return;
+      }
+      currentUser = data.user;
+      csrfToken = data.csrfToken || "";
+      await renderDashboard();
+    } catch {
+      error.textContent = "The authentication service could not be reached. Check your connection and try again.";
+      button.disabled = false;
+      button.textContent = "Sign in";
     }
-  };
+  });
 }
 
-function login(){app.innerHTML=`<div class="auth"><section class="auth-card"><div class="brand"><div class="mark">FBI</div><div><strong>FBI Admin Hub</strong><small>Film Beyond Imagination</small></div></div><h1>Admin Hub preview sign in</h1><p class="muted">This browser-local gate only opens the system directory. It is not server-side administrator authentication.</p><form id="login"><div class="field"><label>Email or username</label><input name="id" autocomplete="username" required></div><div class="field"><label>Password</label><input type="password" name="pw" autocomplete="current-password" required></div><button class="btn gold full">Sign in</button><div id="err" class="error"></div></form><div class="row" style="margin-top:18px"><button class="link" id="forgot">Forgot password?</button><button class="link" id="create">Create local access gate</button></div></section></div>`;
-document.getElementById("login").onsubmit=async e=>{e.preventDefault();const a=account(),f=new FormData(e.target),h=await digest(f.get("pw"));if(a&&String(f.get("id")).toLowerCase()===a.id.toLowerCase()&&h===a.password){sessionStorage.setItem(SESSION,"1");render()}else document.getElementById("err").textContent="Invalid administrator credentials."};document.getElementById("forgot").onclick=forgot;document.getElementById("create").onclick=create}
-function create(){app.innerHTML=`<div class="auth"><section class="auth-card"><div class="brand"><div class="mark">FBI</div><div><strong>FBI Admin Hub</strong><small>Local directory access gate</small></div></div><h1>Create admin account</h1><p class="muted">Create a local access gate for the directory only. This does not create a server-side identity.</p><form id="createForm"><div class="field"><label>Username or email</label><input name="id" required></div><div class="field"><label>Password</label><input type="password" name="pw" minlength="8" required></div><div class="field"><label>Confirm password</label><input type="password" name="pw2" minlength="8" required></div><div class="field"><label>Security question</label><select name="q">${qs.map((x,i)=>`<option value="${i}">${esc(x)}</option>`).join("")}</select></div><div class="field"><label>Security answer</label><input name="a" required></div><button class="btn gold full">Create administrator</button><div id="err" class="error"></div></form><div style="margin-top:18px"><button class="link" id="back">Back to sign in</button></div></section></div>`;
-document.getElementById("createForm").onsubmit=async e=>{e.preventDefault();if(account()){document.getElementById("err").textContent="An administrator already exists on this browser. Use password recovery instead.";return}const f=new FormData(e.target);if(f.get("pw")!==f.get("pw2")){document.getElementById("err").textContent="Passwords do not match.";return}const a={id:String(f.get("id")).trim(),password:await digest(f.get("pw")),q:Number(f.get("q")),answer:await digest(String(f.get("a")).trim().toLowerCase())};localStorage.setItem(KEY,JSON.stringify(a));sessionStorage.setItem(SESSION,"1");render()};document.getElementById("back").onclick=login}
-function forgot(){const a=account();if(!a){create();return}app.innerHTML=`<div class="auth"><section class="auth-card"><div class="brand"><div class="mark">FBI</div><div><strong>FBI Admin Hub</strong><small>Password recovery</small></div></div><h1>Reset password</h1><p class="muted">${esc(qs[a.q])}</p><form id="recover"><div class="field"><label>Security answer</label><input name="a" required></div><div class="field"><label>New password</label><input type="password" name="pw" minlength="8" required></div><div class="field"><label>Confirm password</label><input type="password" name="pw2" minlength="8" required></div><button class="btn gold full">Reset password</button><div id="err" class="error"></div></form><div style="margin-top:18px"><button class="link" id="back">Back to sign in</button></div></section></div>`;
-document.getElementById("recover").onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);if(f.get("pw")!==f.get("pw2")){document.getElementById("err").textContent="Passwords do not match.";return}if(await digest(String(f.get("a")).trim().toLowerCase())!==a.answer){document.getElementById("err").textContent="Security answer is incorrect.";return}a.password=await digest(f.get("pw"));localStorage.setItem(KEY,JSON.stringify(a));sessionStorage.setItem(SESSION,"1");render()};document.getElementById("back").onclick=login}
-function render(){if(session()&&account())shell();else login()}render();
+async function loadRegistry() {
+  try {
+    const { response, data } = await requestJson("/api/ecosystem/registry");
+    if (!response.ok || !Array.isArray(data.systems)) throw new Error("Registry unavailable");
+    systems = data.systems;
+    return true;
+  } catch {
+    systems = [];
+    return false;
+  }
+}
+
+function statusClass(status) {
+  return ({
+    Healthy: "health-healthy",
+    Degraded: "health-degraded",
+    Unavailable: "health-unavailable",
+    Unknown: "health-unknown"
+  })[status] || "health-unknown";
+}
+
+async function loadHealth() {
+  if (healthLoading) return;
+  healthLoading = true;
+  const refresh = document.getElementById("refreshHealth");
+  if (refresh) { refresh.disabled = true; refresh.textContent = "Checking…"; }
+  const message = document.getElementById("healthMessage");
+  if (message) message.textContent = "Checking configured health endpoints. Systems without a verified endpoint will show Unknown.";
+  try {
+    const { response, data } = await requestJson("/api/ecosystem/health");
+    if (response.status === 401) {
+      login("Your session has expired. Please sign in again.");
+      return;
+    }
+    if (!response.ok || !data.ok) throw new Error(data.error || "Health report unavailable.");
+    healthById = Object.fromEntries((data.systems || []).map(item => [item.systemId, item]));
+    healthCheckedAt = data.checkedAt || null;
+    renderHealthCards();
+    if (message) message.textContent = "Last report: " + ghTime(healthCheckedAt) + ". Health is measured, not inferred from the last deployment.";
+  } catch (error) {
+    if (message) message.textContent = error.message || "The health report could not be loaded.";
+    const grid = document.getElementById("healthGrid");
+    if (grid) grid.innerHTML = '<div class="health-empty">Health report unavailable. No system is being marked Healthy without a current check.</div>';
+  } finally {
+    healthLoading = false;
+    const btn = document.getElementById("refreshHealth");
+    if (btn) { btn.disabled = false; btn.textContent = "Refresh checks"; }
+  }
+}
+
+function renderHealthCards() {
+  const grid = document.getElementById("healthGrid");
+  if (!grid) return;
+  const counts = { Healthy: 0, Degraded: 0, Unavailable: 0, Unknown: 0 };
+  for (const system of systems) {
+    const status = healthById[system.id]?.status || "Unknown";
+    counts[status] = (counts[status] || 0) + 1;
+  }
+  const summary = document.getElementById("healthSummary");
+  if (summary) {
+    summary.innerHTML = Object.entries(counts).map(([status, count]) =>
+      `<div class="summary-item"><span class="health-dot ${statusClass(status)}"></span><strong>${count}</strong><span>${esc(status)}</span></div>`
+    ).join("");
+  }
+
+  grid.innerHTML = systems.map(system => {
+    const health = healthById[system.id] || { status: "Unknown", reason: "No current check is available.", checkedAt: null };
+    const canOpen = /^https:\/\//i.test(String(system.url || ""));
+    return `<article class="system-card">
+      <div class="system-card-top"><span class="system-category">${esc(system.category || "SYSTEM")}</span><span class="health-pill ${statusClass(health.status)}">${esc(health.status)}</span></div>
+      <h3>${esc(system.name)}</h3>
+      <p class="system-purpose">${esc(system.purpose || "")}</p>
+      <p class="health-reason">${esc(health.reason || "No diagnostic detail available.")}</p>
+      <div class="health-meta"><span>Checked</span><strong>${esc(ghTime(health.checkedAt))}</strong></div>
+      ${health.latencyMs !== null && health.latencyMs !== undefined ? `<div class="health-meta"><span>Response</span><strong>${Number(health.latencyMs)} ms</strong></div>` : ""}
+      <div class="actions">${canOpen ? `<a class="btn gold" href="${esc(system.url)}" target="_blank" rel="noopener noreferrer">Open system</a>` : '<span class="muted">No launch URL configured</span>'}</div>
+    </article>`;
+  }).join("");
+}
+
+async function logout() {
+  const button = document.getElementById("logoutButton");
+  if (button) { button.disabled = true; button.textContent = "Signing out…"; }
+  try {
+    await requestJson("/api/auth/logout", {
+      method: "POST",
+      headers: { "x-csrf-token": csrfToken }
+    });
+  } finally {
+    currentUser = null;
+    csrfToken = "";
+    login("You have signed out.");
+  }
+}
+
+async function renderDashboard() {
+  await loadRegistry();
+  const roleLabel = currentUser?.roleLabel || currentUser?.role || "Authenticated user";
+  app.innerHTML = `<div class="top">
+    <div class="brand"><div class="mark">FBI</div><div><strong>FBI Digital HQ</strong><small>Film Beyond Imagination</small></div></div>
+    <div class="top-actions"><span class="user-badge"><strong>${esc(roleLabel)}</strong><small>${esc(currentUser?.email || "")}</small></span><button class="signout" id="logoutButton">Sign out</button></div>
+  </div>
+  <main class="content">
+    <div class="hero"><div><div class="muted">ECOSYSTEM CONTROL CENTER</div><h1>Digital HQ</h1><p class="muted">A secure entry point for the FBI business, creative, broadcasting and technical systems.</p></div><span class="status">Server-verified session</span></div>
+    <section class="health-overview">
+      <div class="section-head"><div><div class="section-title">System health</div><h2>Live service checks</h2><p class="muted">A successful deployment is not the same as a healthy application. Each state below comes from a current endpoint check.</p></div><button class="btn ghost" id="refreshHealth">Refresh checks</button></div>
+      <div id="healthSummary" class="health-summary"></div>
+      <p id="healthMessage" class="muted health-message">Loading health report…</p>
+      <div id="healthGrid" class="system-grid">${systems.length ? systems.map(s => `<div class="health-skeleton">${esc(s.name)}<span>Checking…</span></div>`).join("") : '<div class="health-empty">The system registry could not be loaded.</div>'}</div>
+    </section>
+    <section class="admin-box"><h2>Access and security</h2><p class="muted">Your role is enforced by the server. This account cannot create other accounts from the browser. User roles and password hashes are maintained in the deployment's protected <code>FBI_HQ_USERS_JSON</code> setting. Integration snapshots remain disabled until their upstream contracts and permissions are reviewed.</p><p class="muted">Times are shown in Africa/Accra. Systems without a verified health endpoint are shown as Unknown, never assumed to be Healthy.</p></section>
+  </main>`;
+
+  document.getElementById("logoutButton").addEventListener("click", logout);
+  document.getElementById("refreshHealth").addEventListener("click", loadHealth);
+  renderHealthCards();
+  await loadHealth();
+}
+
+async function boot() {
+  const authenticated = await loadCurrentSession();
+  if (authenticated) await renderDashboard();
+  else login();
+}
+
+boot();
