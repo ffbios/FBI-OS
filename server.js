@@ -4,9 +4,6 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3000;
 const root = path.join(__dirname, "public");
-const INVOICE_API_BASE_URL = (process.env.INVOICE_API_BASE_URL || "https://invoice.fbigh.com").replace(/\/+$/, "");
-const FILES_API_BASE_URL = (process.env.FILES_API_BASE_URL || "https://files.fbigh.com").replace(/\/+$/, "");
-const FBI_ADMIN_SHARED_TOKEN = String(process.env.FBI_ADMIN_SHARED_TOKEN || "");
 
 
 const mime = {
@@ -34,32 +31,27 @@ const server = http.createServer(async (req, res) => {
 
   if (pathname === "/") pathname = "/index.html";
   if (pathname === "/admin" || pathname === "/admin/") pathname = "/admin/index.html";
-  if (pathname === "/api/admin/invoice-snapshot") {
-    if (!FBI_ADMIN_SHARED_TOKEN) { res.writeHead(503, {"Content-Type":"application/json"}); return res.end(JSON.stringify({ok:false,error:"Admin integration is not configured."})); }
-    try {
-      const upstream = await fetch(INVOICE_API_BASE_URL + "/api/admin/snapshot", {headers: {"x-fbi-admin-token": FBI_ADMIN_SHARED_TOKEN}});
-      const body = await upstream.text();
-      res.writeHead(upstream.status, {"Content-Type":"application/json; charset=utf-8", "Cache-Control":"no-store"});
-      return res.end(body);
-    } catch (err) {
-      res.writeHead(502, {"Content-Type":"application/json"});
-      return res.end(JSON.stringify({ok:false,error:"Invoice Studio is unreachable."}));
-    }
+  // Public, non-sensitive system directory used by the Admin Hub.
+  if (pathname === "/api/ecosystem/registry") {
+    fs.readFile(path.join(__dirname, "ecosystem", "registry.json"), "utf8", (err, data) => {
+      if (err) {
+        res.writeHead(503, {"Content-Type":"application/json; charset=utf-8", "Cache-Control":"no-store"});
+        res.end(JSON.stringify({ok:false,error:"Ecosystem registry is unavailable."}));
+        return;
+      }
+      res.writeHead(200, {"Content-Type":"application/json; charset=utf-8", "Cache-Control":"no-store"});
+      res.end(data);
+    });
+    return;
   }
 
-  if (pathname === "/api/admin/files-snapshot") {
-    if (!FBI_ADMIN_SHARED_TOKEN) { res.writeHead(503, {"Content-Type":"application/json"}); return res.end(JSON.stringify({ok:false,error:"Admin integration is not configured."})); }
-    try {
-      const upstream = await fetch(FILES_API_BASE_URL + "/api/admin/snapshot", {headers: {"x-fbi-admin-token": FBI_ADMIN_SHARED_TOKEN}});
-      const body = await upstream.text();
-      res.writeHead(upstream.status, {"Content-Type":"application/json; charset=utf-8", "Cache-Control":"no-store"});
-      return res.end(body);
-    } catch (err) {
-      res.writeHead(502, {"Content-Type":"application/json"});
-      return res.end(JSON.stringify({ok:false,error:"Client File Studio is unreachable."}));
-    }
+  // These proxy routes are intentionally disabled until server-verified Admin Hub
+  // authentication and role checks are in place. A shared upstream token alone
+  // must never turn a public endpoint into a relay for private business data.
+  if (pathname === "/api/admin/invoice-snapshot" || pathname === "/api/admin/files-snapshot") {
+    res.writeHead(503, {"Content-Type":"application/json; charset=utf-8", "Cache-Control":"no-store"});
+    return res.end(JSON.stringify({ok:false,error:"Administrative data snapshots are temporarily disabled pending server-side authorization."}));
   }
-
 
   const file = path.normalize(path.join(root, pathname));
   if (!file.startsWith(root)) {
