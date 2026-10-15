@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "reviewedAt": "2026-10-15",
-  "purpose": "Canonical navigation and ownership registry for the FBI digital ecosystem. This file is configuration, not a live health feed.",
+  "purpose": "Canonical navigation and ownership registry for the FBI digital ecosystem. healthUrl values are explicit probe targets; missing targets are reported as Unknown.",
   "statusPolicy": "Do not infer runtime health from this registry. Obtain health from timestamped server-side checks; treat missing or stale checks as Unknown.",
   "systems": [
     {
@@ -11,7 +11,8 @@
       "url": "https://fbigh.com/",
       "repository": "ffbios/FBI-OS",
       "purpose": "Public company information and service discovery",
-      "dataAuthority": "Public company content"
+      "dataAuthority": "Public company content",
+      "healthUrl": "https://fbigh.com/health"
     },
     {
       "id": "invoice-studio",
@@ -20,7 +21,8 @@
       "url": "https://invoice.fbigh.com/",
       "repository": "ffbios/fbi-invoice-studio-cloud",
       "purpose": "Quotes, invoices, receipts and existing invoicing operations",
-      "dataAuthority": "Invoice Studio PostgreSQL and protected application APIs"
+      "dataAuthority": "Invoice Studio PostgreSQL and protected application APIs",
+      "healthUrl": "https://invoice.fbigh.com/api/health"
     },
     {
       "id": "invoice-staff-portal",
@@ -30,7 +32,8 @@
       "repository": "ffbios/fbi-invoice-studio-cloud",
       "purpose": "Existing staff access to assigned payroll and payslip functions",
       "dataAuthority": "Existing Invoice Studio staff/payroll records",
-      "changePolicy": "Protected existing service; do not alter in the initial ecosystem phase"
+      "changePolicy": "Protected existing service; do not alter in the initial ecosystem phase",
+      "healthUrl": "https://fbi-staff-invoice-portal-production.up.railway.app/api/health"
     },
     {
       "id": "client-file-studio",
@@ -39,7 +42,8 @@
       "url": "https://files.fbigh.com/portal",
       "repository": "ffbios/ffbios-fbi-client-file-studio",
       "purpose": "Creative projects, file sharing and client delivery",
-      "dataAuthority": "Client File Studio PostgreSQL and private object storage"
+      "dataAuthority": "Client File Studio PostgreSQL and private object storage",
+      "healthUrl": "https://files.fbigh.com/health"
     },
     {
       "id": "fbi-live",
@@ -48,7 +52,8 @@
       "url": "https://live.fbigh.com/",
       "repository": "ffbios/ffbios-fbi-client-file-studio",
       "purpose": "Live streaming control, ingest and playback",
-      "dataAuthority": "Live streaming services and associated stream state"
+      "dataAuthority": "Live streaming services and associated stream state",
+      "healthUrl": "https://live.fbigh.com/health"
     },
     {
       "id": "fbi-tv",
@@ -66,7 +71,8 @@
       "url": "https://it-command-center-production-7f71.up.railway.app/",
       "repository": "ffbios/fbi-it-command-center",
       "purpose": "Client sites, installations, equipment, incidents, maintenance and monitoring",
-      "dataAuthority": "IT Command Center PostgreSQL"
+      "dataAuthority": "IT Command Center PostgreSQL",
+      "healthUrl": "https://it-command-center-production-7f71.up.railway.app/health"
     },
     {
       "id": "salary-sheet",
