@@ -66,7 +66,7 @@ The diagram describes the intended direction, not a claim that the connections a
 
 The current FBI Admin Hub sign-in state is stored in browser local storage/session storage. That can provide a local UI gate, but it is not a reliable identity system: users can create independent browser-side accounts, and it does not establish a server-verified administrator identity.
 
-The website also has server-to-server snapshot proxy routes for Invoice Studio and Client File Studio. The source checks for a configured shared token but does not establish an authenticated administrator session before relaying those snapshots. The relevant variable names are present in Railway configuration (values were not read). Treat these routes as a potential data-exposure risk until access is verified and server-side authorization is implemented.
+The main branch's server-to-server snapshot proxy routes for Invoice Studio and Client File Studio check for a configured shared token but do not establish an authenticated administrator session before relaying snapshots. The relevant variable names are present in Railway configuration (values were not read). The `ecosystem-foundation` working branch now returns HTTP 503 from both public proxy routes until server-side authentication and authorization are implemented. This mitigation is branch-only; production remains unchanged until an approved release.
 
 **Required before operational data is shown in the hub:**
 - Server-verified sign-in with a durable user directory.
