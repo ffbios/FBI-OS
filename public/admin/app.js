@@ -172,6 +172,7 @@ function renderHealthCards() {
       <div class="system-card-top"><span class="system-category">${esc(system.category || "SYSTEM")}</span><span class="health-pill ${statusClass(health.status)}">${esc(health.status)}</span></div>
       <h3>${esc(system.name)}</h3>
       <p class="system-purpose">${esc(system.purpose || "")}</p>
+      ${system.availabilityNote ? `<p class="module-note"><strong>Operational note:</strong> ${esc(system.availabilityNote)}</p>` : ""}
       <p class="health-reason">${esc(health.reason || "No diagnostic detail available.")}</p>
       <div class="health-meta"><span>Checked</span><strong>${esc(ghTime(health.checkedAt))}</strong></div>
       ${health.latencyMs !== null && health.latencyMs !== undefined ? `<div class="health-meta"><span>Response</span><strong>${Number(health.latencyMs)} ms</strong></div>` : ""}
