@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
 
+  // Mobile navigation navigates to separate HTML pages; it does not scroll between sections.
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.getElementById("primary-nav");
   const closeMenu = () => {
@@ -15,10 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (toggle && nav) {
     toggle.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!open));
-      toggle.setAttribute("aria-label", open ? "Open navigation" : "Close navigation");
-      nav.classList.toggle("open", !open);
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Open navigation" : "Close navigation");
+      nav.classList.toggle("open", !isOpen);
     });
     nav.querySelectorAll("a").forEach(link => link.addEventListener("click", closeMenu));
     document.addEventListener("keydown", event => {
@@ -31,22 +32,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const links = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
-  const sections = links
-    .map(link => document.querySelector(link.getAttribute("href")))
-    .filter(Boolean);
+  // Booking submits to WhatsApp rather than a mailto link, so Windows Outlook never launches.
+  const bookingForm = document.getElementById("project-enquiry-form");
+  if (bookingForm) {
+    bookingForm.addEventListener("submit", event => {
+      event.preventDefault();
+      if (!bookingForm.reportValidity()) return;
 
-  if ("IntersectionObserver" in window && sections.length) {
-    const observer = new IntersectionObserver(entries => {
-      const entry = entries
-        .filter(item => item.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!entry) return;
-      links.forEach(link => {
-        const active = link.getAttribute("href") === "#" + entry.target.id;
-        link.classList.toggle("active", active);
-      });
-    }, { rootMargin: "-24% 0px -58% 0px", threshold: [0, .1, .3, .6] });
-    sections.forEach(section => observer.observe(section));
+      const data = new FormData(bookingForm);
+      const value = key => String(data.get(key) || "").trim();
+      const fields = [
+        "Hello FBI — Film Beyond Imagination. I would like to enquire about a project.",
+        "",
+        "PROJECT ENQUIRY",
+        "Name: " + value("name"),
+        "Phone / WhatsApp: " + value("phone"),
+        value("email") ? "Email: " + value("email") : "",
+        "Service: " + value("service"),
+        value("date") ? "Preferred date: " + value("date") : "",
+        value("location") ? "Location: " + value("location") : "",
+        value("budget") ? "Estimated budget: " + value("budget") : "",
+        "",
+        "Project details:",
+        value("details")
+      ].filter(Boolean);
+
+      const whatsappUrl = "https://wa.me/233257407350?text=" + encodeURIComponent(fields.join("\n"));
+      const status = document.getElementById("form-status");
+      if (status) status.textContent = "Opening WhatsApp with your enquiry. Please review the message and press Send in WhatsApp.";
+      window.location.assign(whatsappUrl);
+    });
   }
 });
