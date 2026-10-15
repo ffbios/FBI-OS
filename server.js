@@ -4,6 +4,8 @@ const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
+const { promisify } = require("node:util");
+const scryptAsync = promisify(crypto.scrypt);
 const auth = require("./lib/admin-auth");
 
 const PORT = Number(process.env.PORT || 3000);
@@ -277,7 +279,7 @@ const server = http.createServer(async (req, res) => {
       catch (error) { console.error("FBI HQ password verification failed:", error.message); }
     } else {
       // Spend comparable work for an unknown account to reduce account-enumeration timing differences.
-      try { await crypto.promisify(crypto.scrypt)(password, Buffer.alloc(16, 1), 64, { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 }); } catch {}
+      try { await scryptAsync(password, Buffer.alloc(16, 1), 64, { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 }); } catch {}
     }
 
     if (!user || !passwordValid) {
