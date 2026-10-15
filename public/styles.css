@@ -720,3 +720,12 @@ body,.inner-page{background:#080808;color:#f4f1e9;font-family:var(--body)}
  .why-choose-grid{grid-template-columns:1fr}
  .why-choose-grid article{min-height:0}
 }
+.floating-watch-tv{right:22px;bottom:91px;min-height:43px;padding:0 15px}
+.floating-whatsapp{position:fixed;right:22px;bottom:22px;z-index:91;display:flex;align-items:center;justify-content:center;width:54px;height:54px;border:2px solid rgba(255,255,255,.14);border-radius:50%;background:#18bf60;color:#fff;box-shadow:0 7px 23px rgba(0,0,0,.35);transition:transform .2s,background .2s}
+.floating-whatsapp svg{width:27px;height:27px;display:block}
+.floating-whatsapp:hover{transform:translateY(-3px);background:#139f4d;color:#fff}
+@media(max-width:760px){
+ .floating-watch-tv{right:13px;bottom:80px;min-height:40px}
+ .floating-whatsapp{right:13px;bottom:13px;width:49px;height:49px}
+ .floating-whatsapp svg{width:25px;height:25px}
+}
