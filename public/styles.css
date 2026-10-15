@@ -693,3 +693,30 @@ body,.inner-page{background:#080808;color:#f4f1e9;font-family:var(--body)}
  .funeral-promo{align-items:flex-start;flex-direction:column;padding:19px}
  .funeral-promo .button{width:100%}
 }
+
+.why-choose-section{background:#0d0d0d;border-top:1px solid #202020;border-bottom:1px solid #202020}
+.why-choose-section .section-heading{margin-bottom:35px}
+.why-choose-section .section-heading h2{font-family:var(--display);font-size:clamp(36px,4.6vw,62px);text-transform:uppercase;letter-spacing:-.025em;color:#f6f3ed}
+.why-choose-section .section-heading h2 span{color:var(--gold-bright)}
+.why-choose-section .section-heading>p:not(.eyebrow){color:#aaa}
+.why-choose-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.why-choose-grid article{min-height:165px;padding:21px 22px;background:#121212;border:1px solid #292929}
+.why-choose-grid article>span,.vision-mission-grid article>span{font-size:9px;font-weight:800;letter-spacing:.15em;color:var(--gold-bright)}
+.why-choose-grid h3{font-family:var(--display);font-size:21px;line-height:1.25;text-transform:uppercase;margin:17px 0 7px;color:#f3f0e8}
+.why-choose-grid p{margin:0;color:#a3a29d;font-size:11px;line-height:1.75}
+.vision-mission-section{background:#0b0b0b}
+.vision-mission-section .section-heading h2{font-family:var(--display);font-size:clamp(36px,4.7vw,61px);text-transform:uppercase;letter-spacing:-.025em}
+.vision-mission-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.vision-mission-grid article{padding:25px;background:#111;border:1px solid #292929;min-height:210px}
+.vision-mission-grid article>span{color:var(--gold-bright)}
+.vision-mission-grid h3{font-family:var(--display);font-size:23px;line-height:1.25;text-transform:uppercase;color:#f4f1e9;margin:16px 0 10px}
+.vision-mission-grid p{margin:0;color:#aaa9a4;font-size:12px;line-height:1.85}
+@media(max-width:850px){
+ .why-choose-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .vision-mission-grid{grid-template-columns:1fr}
+ .vision-mission-grid article{min-height:0}
+}
+@media(max-width:480px){
+ .why-choose-grid{grid-template-columns:1fr}
+ .why-choose-grid article{min-height:0}
+}
