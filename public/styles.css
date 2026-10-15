@@ -251,7 +251,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 .page-hero-live:before{background-image:url("/assets/division-live.webp")}
 .page-hero-technology:before{background-image:url("/assets/division-technology.webp")}
 .page-hero-connect:before{background-image:url("/assets/division-connect.webp")}
-.page-hero-guess-who:before{background-image:url("/assets/hero-production.webp")}
+.page-hero-guess:before{background-image:url("/assets/hero-production.webp")}
 .page-hero-contact:before,.page-hero-booking:before{background-image:url("/assets/division-media.webp")}
 .page-hero-content{position:relative;z-index:1}
 .page-hero-content .eyebrow{color:var(--gold-bright)}
@@ -416,7 +416,7 @@ a,button{-webkit-tap-highlight-color:transparent}
  .contact-method-card{min-height:0;padding:21px}
  .contact-location{align-items:flex-start;flex-direction:column;gap:18px;padding-top:30px;margin-top:30px}
  .contact-location .button{width:100%}
- .page-hero-about:before,.page-hero-services:before,.page-hero-portfolio:before,.page-hero-live:before,.page-hero-technology:before,.page-hero-connect:before,.page-hero-guess-who:before,.page-hero-contact:before,.page-hero-booking:before{background-position:center}
+ .page-hero-about:before,.page-hero-services:before,.page-hero-portfolio:before,.page-hero-live:before,.page-hero-technology:before,.page-hero-connect:before,.page-hero-guess:before,.page-hero-contact:before,.page-hero-booking:before{background-position:center}
 }
 @media(max-width:390px){
  .booking-form{padding:15px}
