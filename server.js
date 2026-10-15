@@ -353,7 +353,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     const contentType = mime[path.extname(file).toLowerCase()] || "application/octet-stream";
-    const noStore = pathname.startsWith("/admin/");
+    const noStore = pathname.startsWith("/admin/") || path.extname(file).toLowerCase() === ".html";
     res.writeHead(200, {
       "Content-Type": contentType,
       "Cache-Control": noStore || pathname === "/index.html" ? "no-cache" : "public, max-age=86400",
