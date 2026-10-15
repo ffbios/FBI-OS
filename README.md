@@ -31,4 +31,4 @@ The ecosystem foundation work is isolated on the `ecosystem-foundation` branch. 
 - `docs/ECOSYSTEM_ROADMAP.md` for phased implementation and release gates.
 - `ecosystem/registry.json` for the public system directory used by Digital HQ.
 
-The foundation branch adds a read-only registry endpoint for the Admin Hub and temporarily disables the public invoice/file snapshot proxies until server-side authorization exists. These changes do not affect production unless the branch is reviewed, merged and deployed.
+The foundation branch adds a read-only registry endpoint, server-side Admin Hub authentication, role checks, protected service-health reporting, and tests. Invoice/file snapshot proxies remain disabled until their upstream contracts are implemented. See `docs/ADMIN_HUB_AUTH.md` for required Railway configuration. These changes do not affect production unless the branch is reviewed, merged and deployed.
