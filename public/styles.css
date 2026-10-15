@@ -44,7 +44,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 @keyframes livePulse{0%,100%{box-shadow:0 0 0 3px rgba(255,255,255,.13)}50%{box-shadow:0 0 0 6px rgba(255,255,255,.04)}}
 .nav-toggle{display:none}
 .hero{display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);position:relative;min-height:670px;background:var(--paper-bright);overflow:hidden}
-.hero-copy-panel{display:flex;align-items:center;justify-content:flex-end;padding:82px clamp(36px,5vw,90px) 94px max(42px,calc((100vw - var(--max))/2)}
+.hero-copy-panel{display:flex;align-items:center;justify-content:flex-end;padding:82px clamp(36px,5vw,90px) 94px max(42px,calc((100vw - var(--max))/2))}
 .hero-copy-inner{max-width:635px;width:100%}
 .eyebrow{display:flex;align-items:center;gap:11px;margin:0 0 20px;color:#957321;font-family:var(--sans);font-size:10px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
 .eyebrow-line{display:inline-block;width:24px;height:2px;background:var(--gold);flex:0 0 auto}
