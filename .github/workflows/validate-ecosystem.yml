@@ -1,0 +1,47 @@
+name: Validate FBI Ecosystem Foundation
+
+on:
+  push:
+    branches:
+      - ecosystem-foundation
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  syntax-and-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check JavaScript syntax
+        run: |
+          node --check server.js
+          node --check public/admin/app.js
+      - name: Validate ecosystem registry
+        run: |
+          node --input-type=commonjs -e '
+            const registry = require("./ecosystem/registry.json");
+            if (registry.schemaVersion !== 1) throw new Error("Unsupported registry schemaVersion");
+            if (!Array.isArray(registry.systems) || registry.systems.length === 0) throw new Error("Registry systems must be a non-empty array");
+            const ids = new Set();
+            for (const system of registry.systems) {
+              for (const key of ["id", "name", "category", "purpose", "dataAuthority"]) {
+                if (typeof system[key] !== "string" || !system[key].trim()) throw new Error("Missing " + key + " for system " + (system.id || "(unknown)"));
+              }
+              if (ids.has(system.id)) throw new Error("Duplicate system id: " + system.id);
+              ids.add(system.id);
+              if (system.url) {
+                const url = new URL(system.url);
+                if (url.protocol !== "https:") throw new Error("System URL must use HTTPS: " + system.id);
+              }
+            }
+            console.log("Validated " + registry.systems.length + " ecosystem systems.");
+          '
