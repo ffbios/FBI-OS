@@ -53,6 +53,9 @@
     const show = (next) => {
       current = (next + photos.length) % photos.length;
       const photo = photos[current];
+      image.classList.remove('cctv-zoom-in', 'cctv-zoom-out');
+      void image.offsetWidth;
+      image.classList.add(current % 2 ? 'cctv-zoom-out' : 'cctv-zoom-in');
       image.src = photo.src;
       image.alt = photo.alt;
       caption.textContent = photo.caption;
@@ -70,7 +73,7 @@
     const start = () => {
       stop();
       if (pausedByUser || (reducedMotion.matches && !userStarted) || document.hidden) return;
-      timer = window.setInterval(() => show(current + 1), 5500);
+      timer = window.setInterval(() => show(current + 1), 6400);
       syncToggle();
     };
     const navigate = (next) => { show(next); start(); };
@@ -236,6 +239,43 @@
     });
     syncToggle();
     start();
+  }
+
+  const droneGallery = document.querySelector('[data-drone-slideshow]');
+  if (droneGallery) {
+    const slides = [...droneGallery.querySelectorAll('[data-drone-slide]')], caption = droneGallery.querySelector('[data-drone-caption]'), counter = droneGallery.querySelector('[data-drone-counter]'), dots = [...droneGallery.querySelectorAll('[data-drone-to]')], toggle = droneGallery.querySelector('[data-drone-toggle]'), motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let current = 0, timer = null, playing = false;
+    const clearTimer = () => { window.clearTimeout(timer); timer = null; };
+    const schedule = delay => { clearTimer(); if (playing && !document.hidden) timer = window.setTimeout(() => activate(current + 1), delay); };
+    const activate = index => {
+      clearTimer(); current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => { slide.classList.toggle('is-active', i === current); slide.setAttribute('aria-hidden', i === current ? 'false' : 'true'); const video = slide.querySelector('video'); if (video && i !== current) { video.pause(); try { video.currentTime = 0; } catch {} } });
+      const slide = slides[current], video = slide.querySelector('video');
+      caption.textContent = slide.dataset.caption; counter.textContent = String(current + 1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0'); counter.setAttribute('aria-label','Slide ' + (current + 1) + ' of ' + slides.length); dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===current)));
+      if (!playing || document.hidden) return;
+      if (!video) { schedule(6400); return; }
+      video.muted = true; try { video.currentTime = 0; } catch {}
+      const attempt = video.play(); if (attempt && typeof attempt.catch === 'function') attempt.catch(() => { if (playing) schedule(12000); });
+    };
+    slides.forEach(slide => slide.querySelector('video')?.addEventListener('ended',()=>{if(playing && slides[current]===slide)activate(current+1)}));
+    const start = manual => { if (playing || (!manual && motion.matches)) return; playing=true; toggle.textContent='Ⅱ'; toggle.setAttribute('aria-label','Pause slideshow'); activate(current); };
+    const pause = () => { playing=false; clearTimer(); slides.forEach(slide=>slide.querySelector('video')?.pause()); toggle.textContent='▶'; toggle.setAttribute('aria-label','Play slideshow'); };
+    droneGallery.querySelector('[data-drone-prev]').addEventListener('click',()=>activate(current-1));
+    droneGallery.querySelector('[data-drone-next]').addEventListener('click',()=>activate(current+1));
+    dots.forEach(dot=>dot.addEventListener('click',()=>activate(Number(dot.dataset.droneTo))));
+    toggle.addEventListener('click',()=>playing?pause():start(true));
+    document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimer();slides[current].querySelector('video')?.pause()}else if(playing)activate(current)});
+    motion.addEventListener?.('change',event=>{if(event.matches)pause()});
+    if(!motion.matches)start(false);else{toggle.textContent='▶';toggle.setAttribute('aria-label','Play slideshow')}
+  }
+  const previewVideos = [...document.querySelectorAll('[data-portfolio-preview]')];
+  if (previewVideos.length && 'IntersectionObserver' in window) {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)'), visible = new WeakMap();
+    const playPreview = video => { if(document.hidden||motion.matches)return; video.muted=true; video.loop=true; video.playsInline=true; const result=video.play(); if(result&&typeof result.catch==='function')result.catch(()=>{}); };
+    const observer = new IntersectionObserver(entries=>entries.forEach(entry=>{visible.set(entry.target,entry.isIntersecting);if(entry.isIntersecting)playPreview(entry.target);else entry.target.pause()}),{rootMargin:'100px 0px',threshold:.2});
+    previewVideos.forEach(video=>{video.muted=true;video.loop=true;video.playsInline=true;video.preload='none';observer.observe(video)});
+    document.addEventListener('visibilitychange',()=>previewVideos.forEach(video=>{if(document.hidden||motion.matches)video.pause();else if(visible.get(video))playPreview(video)}));
+    motion.addEventListener?.('change',event=>previewVideos.forEach(video=>{if(event.matches)video.pause();else if(visible.get(video))playPreview(video)}));
   }
 })();
 

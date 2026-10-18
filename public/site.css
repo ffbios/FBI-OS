@@ -310,3 +310,20 @@
 .floating-tv-status::before{content:"";width:5px;height:5px;border-radius:50%;background:#e85e50;box-shadow:0 0 0 3px rgba(232,94,80,.12)}
 @media(max-width:520px){.floating-tv{right:12px;bottom:68px;gap:8px;min-height:48px;padding:7px 10px;border-radius:13px}.floating-tv-icon{width:32px;height:32px;flex-basis:32px;border-radius:9px}.floating-tv-icon svg{width:19px;height:19px}.floating-tv-copy strong{font-size:9px}.floating-tv-copy small{font-size:8px}.floating-tv-status{font-size:6.5px;padding:4px 5px}}
 @media(max-width:380px){.floating-tv{right:12px;bottom:68px;gap:7px;padding:7px 9px}.floating-tv-copy small{display:none}.floating-tv-status{font-size:0;padding:5px}.floating-tv-status::before{width:6px;height:6px}}
+
+/* Drone Cinematography slideshow with a continuous photo-video cycle. */
+.drone-slideshow{display:grid;gap:10px}.drone-slideshow-frame{position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:4px;background:#151413}
+.drone-slide{position:absolute;inset:0;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .8s ease}.drone-slide.is-active{visibility:visible;opacity:1;pointer-events:auto}
+.drone-backdrop{position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;filter:blur(18px) brightness(.42);transform:scale(1.05)}
+.drone-image,.drone-video{position:relative;z-index:1;display:block;width:100%;height:100%}.drone-image{object-fit:contain;transform:scale(1.02)}.drone-slide.is-active .drone-image{animation:broadcastKenBurns 6.4s ease-in-out both}.drone-slide.is-active.zoom-out .drone-image{animation:droneKenBurnsOut 6.4s ease-in-out both}
+.drone-video-slide{background:#111}.drone-video{object-fit:cover;background:#111}.drone-video-slide .drone-backdrop{filter:blur(24px) brightness(.35)}
+.drone-slideshow-frame::after{content:"";position:absolute;inset:35% 0 0;z-index:2;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent);pointer-events:none}
+.drone-caption{position:absolute;left:14px;right:70px;bottom:13px;z-index:3;color:#fff;font-size:9px;font-weight:600;letter-spacing:.06em;text-shadow:0 1px 8px rgba(0,0,0,.7)}.drone-counter{position:absolute;right:12px;bottom:12px;z-index:3;color:rgba(255,255,255,.86);font-size:8px;letter-spacing:.1em}
+.drone-slideshow-controls{display:flex;align-items:center;justify-content:space-between;gap:10px}.drone-slideshow-dots,.drone-slideshow-buttons{display:flex;align-items:center;gap:6px}
+.drone-slideshow-dots button{width:5px;height:5px;padding:0;border:0;border-radius:50%;background:#c5bca9;cursor:pointer;transition:width .2s,background .2s}.drone-slideshow-dots button[aria-current="true"]{width:16px;border-radius:5px;background:var(--gold-dark)}
+.drone-slideshow-buttons button{display:grid;place-items:center;width:28px;height:28px;padding:0;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink);font-size:16px;line-height:1;cursor:pointer}.drone-slideshow-buttons button:hover{background:var(--gold);border-color:var(--gold);color:#211e18}
+.drone-slideshow-buttons button:focus-visible,.drone-slideshow-dots button:focus-visible{outline:2px solid var(--gold-dark);outline-offset:3px}
+.cctv-slide-image{object-fit:cover;transform:scale(1.02);transform-origin:center}.cctv-slide-image.cctv-zoom-in{animation:broadcastKenBurns 6.4s ease-in-out both}.cctv-slide-image.cctv-zoom-out{animation:droneKenBurnsOut 6.4s ease-in-out both}
+@keyframes droneKenBurnsOut{0%{transform:scale(1.09)}50%{transform:scale(1.045)}100%{transform:scale(1.02)}}
+[data-portfolio-preview]{object-fit:cover}
+@media(prefers-reduced-motion:reduce){.drone-slide.is-active .drone-image,.cctv-slide-image.cctv-zoom-in,.cctv-slide-image.cctv-zoom-out{animation:none!important}}
