@@ -245,7 +245,7 @@
 
 /* Mobile brand lockup: balance the FBI mark with a readable name */
 @media(max-width:800px){
-.site-header .brand{display:flex;align-items:center;justify-content:flex-start;gap:8px;width:196px;min-width:0;flex:0 1 196px}
+.site-header .brand{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:8px;width:196px;min-width:0;flex:0 1 196px}
 .site-header .brand-logo{display:block;width:104px;max-width:104px;height:auto;flex:0 0 104px}
 .site-header .brand-definition{display:block;align-self:center;width:84px;flex:1 1 84px;margin:0;text-align:left;color:#514a3d;font-size:9px;font-weight:600;letter-spacing:.025em;line-height:1.22;white-space:normal}
 }
