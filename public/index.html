@@ -233,6 +233,13 @@ button{cursor:pointer}
 @media(max-width:850px){.site-header{height:72px}.nav-shell{width:calc(100% - 30px);gap:10px}.brand-logo{width:82px;height:43px}.brand{gap:8px}.brand-name{font-size:8px}.nav-links{display:none;position:absolute;left:0;right:0;top:71px;margin:0;padding:8px 24px 20px;background:var(--white);border-bottom:1px solid var(--line);grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}.nav-links.open{display:grid}.nav-links a{padding:14px 0;border-bottom:1px solid var(--line);font-size:9px}.nav-links a:after{display:none}.nav-actions{margin-left:auto}.nav-toggle{display:flex}.hero{grid-template-columns:1fr}.hero-copy{padding:66px 7vw 48px}.hero h1{max-width:700px;font-size:clamp(46px,10vw,78px)}.hero-visual,.hero-visual>img{min-height:450px;max-height:600px}.stats-inner{grid-template-columns:1fr 1fr;gap:20px;padding:25px 0}.stats-intro{padding:0}.stat{padding-left:18px}.section-head{align-items:flex-start;flex-direction:column}.section-head>p{max-width:560px}.division-showcase{grid-template-columns:1fr}.division-photo{min-height:390px}.division-copy{min-height:340px}.live-layout{grid-template-columns:1fr;gap:28px}.live-copy p{max-width:560px}.process-layout{grid-template-columns:1fr;gap:38px}.process-intro{position:static}.about-layout{grid-template-columns:1fr;gap:38px}.about-photo{min-height:440px}.contact-inner{grid-template-columns:1fr}.contact-actions{flex-direction:row;flex-wrap:wrap;min-width:0}.footer-main{grid-template-columns:1fr 1fr}.footer-brand-col{grid-column:1/-1}}
 @media(max-width:600px){.page,.stats-inner{width:calc(100% - 38px)}.utility{display:none}.site-header{height:66px}.nav-shell{width:calc(100% - 22px)}.brand-logo{width:68px;height:38px}.brand-name{font-size:7px;letter-spacing:.12em}.brand-name small{font-size:7px;letter-spacing:.2em}.nav-actions{gap:6px}.watch-tv{min-height:36px;padding:0 9px;font-size:7px;letter-spacing:.07em}.header-cta{min-height:36px;padding:0 10px;font-size:7px;letter-spacing:.06em}.nav-toggle{width:35px;height:36px;font-size:17px}.nav-links{top:65px;padding-inline:19px}.hero-copy{padding:55px 22px 39px}.hero h1{font-size:clamp(43px,12vw,66px)}.hero-copy>p{font-size:13px;line-height:1.8}.hero-buttons .button{min-height:43px;padding-inline:13px;font-size:8px}.hero-note{margin-top:28px;font-size:7px;letter-spacing:.1em}.hero-visual,.hero-visual>img{min-height:340px}.hero-mark{left:21px;bottom:27px}.hero-index{right:20px;bottom:30px;font-size:8px}.stats-inner{gap:16px}.stats-intro{grid-column:1/-1}.stat{min-height:48px;padding-left:12px}.stat strong{font-size:29px}.stat span{font-size:7px;letter-spacing:.08em}.section{padding:70px 0}.section-head{gap:18px;margin-bottom:29px}.section-head h2,.section-title{font-size:clamp(36px,10vw,52px)}.division-tabs{grid-template-columns:1fr 1fr}.division-tab{min-height:52px;padding-inline:13px;font-size:7px}.division-tab:after{left:13px}.division-tab[aria-selected="true"]:after{right:13px}.division-photo{min-height:300px}.division-copy{min-height:0;padding:27px 22px 31px}.division-copy h3{font-size:38px}.portfolio-grid{grid-auto-columns:minmax(235px,78vw);gap:11px}.portfolio-control button{width:34px;height:34px}.portfolio-foot{font-size:7px;letter-spacing:.08em}.live-card-head,.live-card-foot{padding:10px}.live-card-head strong{font-size:10px}.live-card-foot{font-size:7px}.process-item summary{min-height:70px;grid-template-columns:35px 1fr 23px;font-size:19px}.process-item p{margin-left:47px;margin-right:20px}.about-photo{min-height:340px}.contact-cta{padding:70px 0}.contact-inner h2{font-size:clamp(44px,12vw,64px)}.contact-actions{display:grid;grid-template-columns:1fr 1fr}.contact-actions .button:first-child{grid-column:1/-1}.contact-details{gap:12px;font-size:7px}.footer-main{grid-template-columns:1fr;gap:26px;padding:35px 0}.footer-brand-col{grid-column:auto}.footer-bottom{align-items:flex-start;flex-direction:column;justify-content:center;padding:13px 0}.form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}.modal-head,.modal-body{padding:18px}.modal-head h2{font-size:23px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* Homepage media additions: CCTV slideshow, Kaswa event video and quick contact */
+.watch-tv{gap:9px}.watch-tv-icon{width:14px;height:14px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.4}.watch-tv-icon path{fill:currentColor;stroke:none}
+.work-card-gallery{position:absolute;inset:0;overflow:hidden;background:#181817}.work-card-gallery .work-card-slide{opacity:0;transform:scale(1.035);transition:opacity .75s ease,transform 5.2s ease}.work-card-gallery .work-card-slide.is-active{opacity:1;transform:scale(1.09)}.work-card.has-slideshow{aspect-ratio:1.08}.work-card-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#171918;transition:transform .7s cubic-bezier(.2,.8,.2,1)}.work-card:hover .work-card-video,.work-card:focus-visible .work-card-video{transform:scale(1.055)}
+.whatsapp-float{position:fixed;right:26px;bottom:26px;z-index:45;display:flex;align-items:center;gap:11px;padding:9px 17px 9px 10px;border:1px solid rgba(205,165,68,.58);background:#171918;color:#fff;box-shadow:0 12px 34px rgba(0,0,0,.24);transition:transform .2s,box-shadow .2s,border-color .2s}.whatsapp-float:hover{transform:translateY(-3px);border-color:#cda544;box-shadow:0 17px 40px rgba(0,0,0,.3)}.whatsapp-float-icon{display:grid;width:36px;height:36px;place-items:center;border-radius:50%;background:#25d366;color:#fff}.whatsapp-float-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}.whatsapp-float-label{display:flex;flex-direction:column;gap:1px;font:800 9px/1.3 var(--sans);letter-spacing:.1em;text-transform:uppercase}.whatsapp-float-label small{color:#b7b6af;font:500 9px/1.4 var(--body);letter-spacing:0;text-transform:none}
+@media(max-width:600px){.whatsapp-float{right:14px;bottom:14px;padding:7px 13px 7px 7px;gap:8px}.whatsapp-float-icon{width:34px;height:34px}}
+@media(prefers-reduced-motion:reduce){.work-card-gallery .work-card-slide,.work-card-video,.whatsapp-float{transition:none}.work-card-gallery .work-card-slide.is-active{transform:none}}
 </style>
 </head>
 <body>
@@ -242,7 +249,7 @@ button{cursor:pointer}
   <nav class="nav-shell" aria-label="Main navigation">
     <a class="brand" href="#home" aria-label="FBI home"><img class="brand-logo" src="/assets/fbi-original-logo.webp" alt="FBI official logo"><span class="brand-name">FILM BEYOND<small>IMAGINATION</small></span></a>
     <div id="navLinks" class="nav-links"><a href="#expertise">Expertise</a><a href="#work">Selected work</a><a href="#live">FBI TV</a><a href="#about">Our story</a><a href="#contact">Contact</a></div>
-    <div class="nav-actions"><button id="tvOpenTop" class="button button-outline watch-tv"><span class="live-dot"></span> Watch FBI TV</button><button class="button button-gold header-cta booking-open">Start a project <span aria-hidden="true">↗</span></button><button id="menuToggle" class="nav-toggle" aria-label="Open navigation" aria-expanded="false">☰</button></div>
+    <div class="nav-actions"><button id="tvOpenTop" class="button button-outline watch-tv"><span class="live-dot"></span><svg class="watch-tv-icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="4" width="16" height="12" rx="1.4"></rect><path d="m8 7 5 3-5 3z"></path></svg><span>Watch FBI TV</span></button><button class="button button-gold header-cta booking-open">Start a project <span aria-hidden="true">↗</span></button><button id="menuToggle" class="nav-toggle" aria-label="Open navigation" aria-expanded="false">☰</button></div>
   </nav>
 </header>
 <main id="main">
@@ -332,19 +339,128 @@ connect:{kicker:"Reach the right people",title:"FBI Connect",description:"Commun
 const projects=[
 {id:1,title:"Cinematic Storytelling",category:"film",label:"Film & Media",image:"/assets/hero-production.webp",description:"Visual storytelling shaped around a strong idea, a clear audience and thoughtful craft."},
 {id:2,title:"Live Event Production",category:"broadcast",label:"Broadcast",image:"/assets/division-live.webp",description:"Production planning and live coverage for events that deserve to be seen and heard."},
-{id:3,title:"CCTV & Security Systems",category:"technology",label:"Technology",image:"/assets/division-technology.webp",description:"Security and connected technology planned for dependable everyday operation."},
-{id:4,title:"Drone Cinematography",category:"film",label:"Film & Media",image:"/assets/portfolio-drone.webp",description:"Aerial visuals for campaigns, locations, events and visual storytelling."},
-{id:5,title:"Broadcast Studio",category:"broadcast",label:"Broadcast",image:"/assets/division-live.webp",description:"A look at the people, planning and equipment behind a live production."},
-{id:6,title:"Connected Communication",category:"connect",label:"FBI Connect",image:"/assets/division-connect.webp",description:"Communication support for businesses, projects and communities."}];
+{id:3,title:"Funeral Coverage at Kaswa",category:"broadcast",label:"Live Events · Event 2",image:"/assets/division-live.webp",video:"/assets/live-events/funeral-at-kaswa.mp4",description:"Event 2 — live coverage from a funeral service at Kaswa, Ghana."},
+{id:4,title:"CCTV & Security Systems",category:"technology",label:"Technology · Installation gallery",image:"/assets/cctv/cctv-installation-01.jpg",gallery:["/assets/cctv/cctv-installation-01.jpg","/assets/cctv/cctv-installation-02.jpg","/assets/cctv/cctv-installation-03.jpg","/assets/cctv/cctv-installation-04.jpg","/assets/cctv/cctv-installation-05.jpg","/assets/cctv/cctv-installation-06.jpg"],description:"A six-photo look at dome camera installations and live monitoring from a CCTV security project."},
+{id:5,title:"Drone Cinematography",category:"film",label:"Film & Media",image:"/assets/portfolio-drone.webp",description:"Aerial visuals for campaigns, locations, events and visual storytelling."},
+{id:6,title:"Broadcast Studio",category:"broadcast",label:"Broadcast",image:"/assets/division-live.webp",description:"A look at the people, planning and equipment behind a live production."},
+{id:7,title:"Connected Communication",category:"connect",label:"FBI Connect",image:"/assets/division-connect.webp",description:"Communication support for businesses, projects and communities."}];
 const $=function(s,r){return (r||document).querySelector(s)};
 const $$=function(s,r){return Array.from((r||document).querySelectorAll(s))};
-let activeHls=null,lastFocus=null,toastTimer=null;
+let activeHls=null,lastFocus=null,toastTimer=null,portfolioSlideTimers=[];
 function toast(message){const e=$("#toast");e.textContent=message;e.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){e.classList.remove("show")},3200)}
 function setDivision(key){const d=divisions[key];if(!d)return;$$(".division-tab").forEach(function(t){const on=t.dataset.division===key;t.setAttribute("aria-selected",String(on));t.tabIndex=on?0:-1});const p=$("#divisionPanel");p.setAttribute("aria-labelledby","tab-"+key);$("#divisionKicker").textContent=d.kicker;$("#divisionTitle").textContent=d.title;$("#divisionDescription").textContent=d.description;$("#divisionImageCaption").textContent=d.caption;const image=$("#divisionImage");image.style.opacity=".35";setTimeout(function(){image.src=d.image;image.alt=d.title+" services";image.onload=function(){image.style.opacity="1"};},100);const list=$("#divisionServices");list.replaceChildren();d.services.forEach(function(label){const span=document.createElement("span");span.className="service-pill";span.textContent=label;list.appendChild(span)})}
-function renderPortfolio(filter){const grid=$("#portfolioGrid");grid.replaceChildren();projects.filter(function(p){return filter==="all"||p.category===filter}).forEach(function(p){const button=document.createElement("button");button.type="button";button.className="work-card";button.setAttribute("aria-label","Preview "+p.title);const image=document.createElement("img");image.src=p.image;image.alt=p.title;image.loading="lazy";image.decoding="async";image.onerror=function(){image.style.display="none"};const content=document.createElement("span");content.className="work-card-content";const label=document.createElement("small");label.textContent=p.label;const title=document.createElement("strong");title.textContent=p.title;const link=document.createElement("span");link.className="work-card-link";link.innerHTML="<span>View project</span><i aria-hidden='true'>↗</i>";content.append(label,title,link);button.append(image,content);button.addEventListener("click",function(){openProject(p)});grid.appendChild(button)})}
+function renderPortfolio(filter){
+  portfolioSlideTimers.forEach(function(timer){window.clearInterval(timer)});
+  portfolioSlideTimers=[];
+  const grid=$("#portfolioGrid");
+  grid.replaceChildren();
+  projects.filter(function(p){return filter==="all"||p.category===filter}).forEach(function(p){
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="work-card"+(p.gallery?" has-slideshow":"");
+    button.setAttribute("aria-label",(p.video?"Watch ":"Preview ")+p.title);
+    if(p.gallery&&p.gallery.length>1){
+      const gallery=document.createElement("span");
+      gallery.className="work-card-gallery";
+      gallery.setAttribute("aria-hidden","true");
+      const slides=[];
+      p.gallery.forEach(function(src,index){
+        const image=document.createElement("img");
+        image.className="work-card-slide"+(index===0?" is-active":"");
+        image.src=src;
+        image.alt="";
+        image.loading=index===0?"eager":"lazy";
+        image.decoding="async";
+        image.onerror=function(){image.style.display="none"};
+        gallery.appendChild(image);
+        slides.push(image);
+      });
+      button.appendChild(gallery);
+      let current=0;
+      const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
+      const timer=window.setInterval(function(){
+        if(document.hidden||reducedMotion.matches)return;
+        slides[current].classList.remove("is-active");
+        current=(current+1)%slides.length;
+        slides[current].classList.add("is-active");
+      },5200);
+      portfolioSlideTimers.push(timer);
+    }else if(p.video){
+      const video=document.createElement("video");
+      video.className="work-card-video";
+      video.src=p.video;
+      video.poster=p.image;
+      video.muted=true;
+      video.autoplay=true;
+      video.loop=true;
+      video.playsInline=true;
+      video.preload="metadata";
+      video.setAttribute("aria-hidden","true");
+      video.addEventListener("error",function(){
+        const poster=document.createElement("img");
+        poster.src=p.image;
+        poster.alt="";
+        poster.loading="lazy";
+        poster.onerror=function(){poster.style.display="none"};
+        video.replaceWith(poster);
+      },{once:true});
+      button.appendChild(video);
+    }else{
+      const image=document.createElement("img");
+      image.src=p.image;
+      image.alt="";
+      image.loading="lazy";
+      image.decoding="async";
+      image.onerror=function(){image.style.display="none"};
+      button.appendChild(image);
+    }
+    const content=document.createElement("span");
+    content.className="work-card-content";
+    const label=document.createElement("small");
+    label.textContent=p.label;
+    const title=document.createElement("strong");
+    title.textContent=p.title;
+    const link=document.createElement("span");
+    link.className="work-card-link";
+    link.innerHTML="<span>"+(p.video?"Watch coverage":p.gallery?"View gallery":"View project")+"</span><i aria-hidden='true'>↗</i>";
+    content.append(label,title,link);
+    button.append(content);
+    button.addEventListener("click",function(){openProject(p)});
+    grid.appendChild(button);
+  });
+}
 function modalOpen(el){lastFocus=document.activeElement;el.classList.add("show");document.body.style.overflow="hidden";const f=$("button,input,select,textarea",el);if(f)f.focus()}
 function modalClose(el){el.classList.remove("show");if(!$(".modal-backdrop.show")&&!$("#fbiTvDrawer").classList.contains("open"))document.body.style.overflow="";if(lastFocus&&lastFocus.focus)lastFocus.focus()}
-function openProject(p){const body=$("#portfolioPreviewBody");body.replaceChildren();$("#portfolioModalTitle").textContent=p.title;$("#portfolioPreviewTitle").textContent=p.title;$("#portfolioPreviewCategory").textContent=p.label;$("#portfolioPreviewDescription").textContent=p.description;const image=document.createElement("img");image.src=p.image;image.alt=p.title;image.style.maxWidth="100%";image.style.maxHeight="65vh";image.style.objectFit="contain";body.appendChild(image);modalOpen($("#portfolioModal"))}
+function openProject(p){
+  const body=$("#portfolioPreviewBody");
+  body.replaceChildren();
+  $("#portfolioModalTitle").textContent=p.title;
+  $("#portfolioPreviewTitle").textContent=p.title;
+  $("#portfolioPreviewCategory").textContent=p.label;
+  $("#portfolioPreviewDescription").textContent=p.description;
+  let media;
+  if(p.video){
+    media=document.createElement("video");
+    media.src=p.video;
+    media.poster=p.image;
+    media.controls=true;
+    media.playsInline=true;
+    media.preload="metadata";
+    media.setAttribute("aria-label",p.title);
+    media.style.width="100%";
+    media.style.maxHeight="65vh";
+    media.style.objectFit="contain";
+  }else{
+    media=document.createElement("img");
+    media.src=p.gallery&&p.gallery.length?p.gallery[0]:p.image;
+    media.alt=p.title;
+    media.style.maxWidth="100%";
+    media.style.maxHeight="65vh";
+    media.style.objectFit="contain";
+  }
+  body.appendChild(media);
+  modalOpen($("#portfolioModal"));
+}
 function closeProject(){modalClose($("#portfolioModal"))}
 function loadTv(){const f=$("#fbiTvFrame"),v=$("#fbiTvVideo"),placeholder=$("#tvPlaceholder");f.classList.add("hidden");v.classList.add("hidden");placeholder.classList.remove("hidden");f.src="about:blank";if(activeHls){activeHls.destroy();activeHls=null}v.pause();v.removeAttribute("src");v.load();if(FBI_CONFIG.tv.provider==="hls"&&FBI_CONFIG.tv.hlsUrl){placeholder.classList.add("hidden");v.classList.remove("hidden");if(window.Hls&&Hls.isSupported()){activeHls=new Hls();activeHls.loadSource(FBI_CONFIG.tv.hlsUrl);activeHls.attachMedia(v);activeHls.on(Hls.Events.ERROR,function(_,data){if(data.fatal)toast("FBI TV playback error. Check the stream URL and CORS settings.")})}else if(v.canPlayType("application/vnd.apple.mpegurl"))v.src=FBI_CONFIG.tv.hlsUrl;else{v.classList.add("hidden");placeholder.classList.remove("hidden");toast("This browser cannot play the configured HLS stream.")}}else if(FBI_CONFIG.tv.provider==="embed"&&FBI_CONFIG.tv.embedUrl){placeholder.classList.add("hidden");f.classList.remove("hidden");f.src=FBI_CONFIG.tv.embedUrl}}
 function openTv(){lastFocus=document.activeElement;const home=$("#homepageLiveFrame");if(home&&home.getAttribute("src")!=="about:blank"){home.dataset.resumeAfterTv="true";home.src="about:blank"}$("#tvBackdrop").classList.add("show");$("#fbiTvDrawer").classList.add("open");$("#fbiTvDrawer").setAttribute("aria-hidden","false");document.body.style.overflow="hidden";$("#navLinks").classList.remove("open");loadTv();$("#tvClose").focus()}
@@ -364,5 +480,5 @@ $("#menuToggle").addEventListener("click",toggleMenu);$$(".nav-links a").forEach
 document.addEventListener("keydown",function(e){if(e.key==="Escape"){if($("#fbiTvDrawer").classList.contains("open"))closeTv();if($("#portfolioModal").classList.contains("show"))closeProject();if($("#bookingModal").classList.contains("show"))modalClose($("#bookingModal"))}});
 $("#currentYear").textContent=String(new Date().getFullYear());renderPortfolio("all");setDivision("media");
 </script>
-</body>
+<a class="whatsapp-float" href="https://wa.me/233257407350" target="_blank" rel="noopener noreferrer" aria-label="Chat with FBI on WhatsApp"><span class="whatsapp-float-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L4 20l1.1-4.1a8.2 8.2 0 1 1 15.1-4.2Z"></path><path d="M9.1 8.7c-.2.4-.5.7-.5 1.1 0 .9 1.2 2.7 2.4 3.7 1.2 1 2.7 1.8 3.5 1.8.4 0 .8-.3 1.1-.6l.6-.8-2-1.3-.8.8c-.7-.3-1.5-.9-2-1.5l.6-.9-1.4-1.9z"></path></svg></span><span class="whatsapp-float-label">Chat with FBI<small>WhatsApp · Accra, Ghana</small></span></a></body>
 </html>

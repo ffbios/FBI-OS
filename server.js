@@ -25,7 +25,8 @@ const mime = {
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
   ".webp": "image/webp",
-  ".ico": "image/x-icon"
+  ".ico": "image/x-icon",
+  ".mp4": "video/mp4"
 };
 
 function json(res, status, body, extraHeaders = {}) {
@@ -339,6 +340,46 @@ const server = http.createServer(async (req, res) => {
   const file = path.resolve(root, "." + pathname);
   const relative = path.relative(root, file);
   if (relative.startsWith("..") || path.isAbsolute(relative)) return json(res, 403, { ok: false, error: "Forbidden." });
+
+  if (path.extname(file).toLowerCase() === ".mp4" && req.headers.range) {
+    fs.stat(file, (statErr, stats) => {
+      if (statErr || !stats.isFile()) return json(res, 404, { ok: false, error: "Not found." });
+      const size = stats.size;
+      const match = /^bytes=(\\d*)-(\\d*)$/.exec(String(req.headers.range));
+      if (!match) {
+        res.writeHead(416, { "Content-Range": "bytes */" + size, "Accept-Ranges": "bytes" });
+        return res.end();
+      }
+      let start;
+      let end;
+      if (match[1] === "") {
+        const suffixLength = Number(match[2]);
+        start = Math.max(size - suffixLength, 0);
+        end = size - 1;
+      } else {
+        start = Number(match[1]);
+        end = match[2] ? Math.min(Number(match[2]), size - 1) : size - 1;
+      }
+      if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 0 || start >= size || start > end) {
+        res.writeHead(416, { "Content-Range": "bytes */" + size, "Accept-Ranges": "bytes" });
+        return res.end();
+      }
+      res.writeHead(206, {
+        "Content-Type": "video/mp4",
+        "Accept-Ranges": "bytes",
+        "Content-Length": end - start + 1,
+        "Content-Range": "bytes " + start + "-" + end + "/" + size,
+        "Cache-Control": "public, max-age=86400",
+        "X-Content-Type-Options": "nosniff"
+      });
+      if (req.method === "HEAD") return res.end();
+      fs.createReadStream(file, { start, end }).on("error", () => {
+        if (!res.headersSent) return json(res, 500, { ok: false, error: "Video unavailable." });
+        res.destroy();
+      }).pipe(res);
+    });
+    return;
+  }
 
   fs.readFile(file, (err, data) => {
     if (err) {
