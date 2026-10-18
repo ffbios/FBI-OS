@@ -517,9 +517,11 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(200, {
       "Content-Type": contentType,
       "Cache-Control": noStore || pathname === "/index.html" ? "no-cache" : "public, max-age=86400",
+      "Content-Length": data.length,
+      "Accept-Ranges": path.extname(file).toLowerCase() === ".mp4" ? "bytes" : "none",
       "X-Content-Type-Options": "nosniff"
     });
-    res.end(data);
+    res.end(req.method === "HEAD" ? undefined : data);
   });
 });
 
