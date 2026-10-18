@@ -1,6 +1,7 @@
 "use strict";
 
 const http = require("node:http");
+const https = require("node:https");
 const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
@@ -210,6 +211,104 @@ async function ecosystemHealthReport() {
   return { ok: true, checkedAt: new Date().toISOString(), summary: counts, systems };
 }
 
+function mediaObjectKey(pathname, prefix) {
+  const key = pathname.slice(prefix.length);
+  if (!key.startsWith("assets/") || key.length > 512 || key.includes("\\") || key.split("/").some(part => !part || part === "." || part === "..")) return null;
+  return key;
+}
+
+function signedBucketRequest(method, key, contentType, contentLength, range) {
+  const endpoint = new URL(String(process.env.MEDIA_ENDPOINT || ""));
+  const bucket = String(process.env.MEDIA_BUCKET || "");
+  const region = String(process.env.MEDIA_REGION || "auto");
+  const accessKeyId = String(process.env.MEDIA_ACCESS_KEY_ID || "");
+  const secretAccessKey = String(process.env.MEDIA_SECRET_ACCESS_KEY || "");
+  if (endpoint.protocol !== "https:" || !bucket || !accessKeyId || !secretAccessKey) throw new Error("Media storage is not configured.");
+
+  const hostname = bucket + "." + endpoint.hostname;
+  const host = hostname + (endpoint.port ? ":" + endpoint.port : "");
+  const pathPrefix = endpoint.pathname.replace(/\/+$/, "");
+  const objectPath = pathPrefix + "/" + key.split("/").map(encodeURIComponent).join("/");
+  const amzDate = new Date().toISOString().replace(/[:-]|\.\d{3}/g, "");
+  const dateStamp = amzDate.slice(0, 8);
+  const payloadHash = method === "PUT" ? "UNSIGNED-PAYLOAD" : crypto.createHash("sha256").update("").digest("hex");
+  const signedHeaders = method === "PUT"
+    ? "content-type;host;x-amz-content-sha256;x-amz-date"
+    : "host;x-amz-content-sha256;x-amz-date";
+  const canonicalHeaders = method === "PUT"
+    ? "content-type:" + contentType.trim() + "\n" + "host:" + host + "\n" + "x-amz-content-sha256:" + payloadHash + "\n" + "x-amz-date:" + amzDate + "\n"
+    : "host:" + host + "\n" + "x-amz-content-sha256:" + payloadHash + "\n" + "x-amz-date:" + amzDate + "\n";
+  const canonicalRequest = [method, objectPath, "", canonicalHeaders, signedHeaders, payloadHash].join("\n");
+  const scope = dateStamp + "/" + region + "/s3/aws4_request";
+  const stringToSign = ["AWS4-HMAC-SHA256", amzDate, scope, crypto.createHash("sha256").update(canonicalRequest).digest("hex")].join("\n");
+  const hmac = (secret, value) => crypto.createHmac("sha256", secret).update(value, "utf8").digest();
+  const dateKey = hmac(Buffer.from("AWS4" + secretAccessKey, "utf8"), dateStamp);
+  const regionKey = hmac(dateKey, region);
+  const serviceKey = hmac(regionKey, "s3");
+  const signingKey = hmac(serviceKey, "aws4_request");
+  const signature = crypto.createHmac("sha256", signingKey).update(stringToSign, "utf8").digest("hex");
+  const headers = {
+    Host: host,
+    "x-amz-date": amzDate,
+    "x-amz-content-sha256": payloadHash,
+    Authorization: "AWS4-HMAC-SHA256 Credential=" + accessKeyId + "/" + scope + ", SignedHeaders=" + signedHeaders + ", Signature=" + signature
+  };
+  if (method === "PUT") {
+    headers["Content-Type"] = contentType;
+    headers["Content-Length"] = String(contentLength);
+  }
+  if (range) headers.Range = range;
+  return { hostname, port: endpoint.port ? Number(endpoint.port) : 443, path: objectPath, method, headers };
+}
+
+function proxyMediaObject(req, res, key, method = "GET") {
+  let options;
+  try {
+    const contentType = String(req.headers["content-type"] || "application/octet-stream").split(";")[0];
+    options = signedBucketRequest(method, key, contentType, req.headers["content-length"], req.headers.range);
+  } catch {
+    return json(res, 503, { ok: false, error: "Media storage is unavailable." });
+  }
+  const upstream = https.request(options, upstreamRes => {
+    const status = Number(upstreamRes.statusCode || 502);
+    if (method === "PUT") {
+      upstreamRes.resume();
+      upstreamRes.on("end", () => {
+        if (status >= 200 && status < 300) return json(res, 201, { ok: true, key });
+        return json(res, 502, { ok: false, error: "Media upload failed." });
+      });
+      return;
+    }
+    if (status >= 400) {
+      upstreamRes.resume();
+      return json(res, status === 404 ? 404 : 502, { ok: false, error: status === 404 ? "Not found." : "Media is temporarily unavailable." });
+    }
+    const extension = path.extname(key).toLowerCase();
+    const headers = {
+      "Content-Type": upstreamRes.headers["content-type"] || mime[extension] || "application/octet-stream",
+      "Cache-Control": "public, max-age=86400",
+      "Accept-Ranges": "bytes",
+      "X-Content-Type-Options": "nosniff"
+    };
+    for (const header of ["content-length", "content-range", "etag", "last-modified"]) {
+      if (upstreamRes.headers[header]) headers[header] = upstreamRes.headers[header];
+    }
+    res.writeHead(status, headers);
+    if (method === "HEAD") {
+      upstreamRes.resume();
+      return res.end();
+    }
+    upstreamRes.on("error", () => res.destroy());
+    upstreamRes.pipe(res);
+  });
+  upstream.on("error", () => {
+    if (res.headersSent) return res.destroy();
+    return json(res, 502, { ok: false, error: "Media is temporarily unavailable." });
+  });
+  if (method === "PUT") req.pipe(upstream);
+  else upstream.end();
+}
+
 const server = http.createServer(async (req, res) => {
   const requestId = crypto.randomUUID();
   res.setHeader("X-Request-Id", requestId);
@@ -232,6 +331,24 @@ const server = http.createServer(async (req, res) => {
 
   if (pathname === "/health") {
     return json(res, 200, { ok: true, status: "ok", service: "fbi-os-website", time: new Date().toISOString() });
+  }
+
+  if (pathname.startsWith("/media/") && (req.method === "GET" || req.method === "HEAD")) {
+    const key = mediaObjectKey(pathname, "/media/");
+    if (!key) return json(res, 404, { ok: false, error: "Not found." });
+    return proxyMediaObject(req, res, key, req.method);
+  }
+
+  if (pathname.startsWith("/api/media-upload/") && req.method === "PUT") {
+    const token = String(process.env.MEDIA_UPLOAD_TOKEN || "");
+    const authorization = String(req.headers.authorization || "");
+    const suppliedToken = authorization.startsWith("Bearer ") ? authorization.slice(7) : "";
+    if (!token || !safeTokenEqual(suppliedToken, token)) return json(res, 401, { ok: false, error: "Upload authorization required." });
+    const key = mediaObjectKey(pathname, "/api/media-upload/");
+    if (!key) return json(res, 400, { ok: false, error: "Invalid media path." });
+    const length = Number(req.headers["content-length"]);
+    if (!Number.isSafeInteger(length) || length < 1 || length > 400 * 1024 * 1024) return json(res, 413, { ok: false, error: "Invalid media size." });
+    return proxyMediaObject(req, res, key, "PUT");
   }
 
   if (pathname === "/api/ecosystem/registry" && req.method === "GET") {
@@ -407,3 +524,4 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, "0.0.0.0", () => {
   console.log("FBI GH website listening on port " + PORT);
 });
+

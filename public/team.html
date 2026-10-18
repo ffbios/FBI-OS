@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en"><head>
+<link rel="canonical" href="https://fbigh.com/team.html"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Our Team | Film Beyond Imagination</title><link rel="stylesheet" href="site.css"><style>
+.production-profile-card .production-slideshow{margin:0 0 15px}
+.production-slide-stage{position:relative;aspect-ratio:.9/1;overflow:hidden;background:#24211d;isolation:isolate}
+.production-slide-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;opacity:0;transform:scale(1.025);transition:opacity .72s ease,transform 6.2s ease;z-index:0}
+.production-slide-image.is-active{opacity:1;transform:scale(1.09);z-index:1}
+.production-slide-shade{position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(16,15,14,.68));z-index:2;pointer-events:none}
+.production-slide-caption{position:absolute;left:17px;right:82px;bottom:18px;color:#fff;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;line-height:1.5;z-index:3;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.production-slide-count{position:absolute;right:15px;bottom:17px;color:#f2d78d;font-size:9px;font-weight:700;letter-spacing:.12em;z-index:3}
+.production-slide-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:9px}
+.production-slide-controls button{min-width:36px;min-height:32px;padding:0 10px;border:1px solid var(--line);background:#fff;color:var(--ink);font:700 9px/1 "DM Sans",Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.production-slide-controls button:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.production-slide-controls .production-slide-toggle{flex:1}
+@media(max-width:520px){.production-slide-stage{aspect-ratio:.92/1}}
+@media(prefers-reduced-motion:reduce){.production-slide-image{transition:none;transform:none!important}}
+.technology-profile-card .technology-slideshow{margin:0 0 15px}
+.technology-slide-stage{position:relative;aspect-ratio:.9/1;overflow:hidden;background:#24211d;isolation:isolate}
+.technology-slide{position:absolute;inset:0;opacity:0;transform:scale(1.025);transition:opacity .72s ease,transform 6.2s ease;z-index:0;pointer-events:none}
+.technology-slide.is-active{opacity:1;transform:scale(1.08);z-index:1;pointer-events:auto}
+.technology-slide img,.technology-slide video{display:block;width:100%;height:100%;object-fit:cover;object-position:center 38%}
+.technology-slide-caption{top:17px;bottom:auto}
+@media(max-width:520px){.technology-slide-stage{aspect-ratio:.92/1}}
+@media(prefers-reduced-motion:reduce){.technology-slide{transition:none;transform:none!important}}
+.broadcast-profile-card .broadcast-slideshow{margin:0 0 15px}
+.broadcast-slide-stage{position:relative;aspect-ratio:1.2/1;overflow:hidden;background:#181715;isolation:isolate}
+.broadcast-slide{position:absolute;inset:0;opacity:0;transition:opacity .72s ease;z-index:0;pointer-events:none}
+.broadcast-slide.is-active{opacity:1;z-index:1;pointer-events:auto}
+.broadcast-slide-media{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1);transition:transform 6.2s ease-in-out}
+.broadcast-slide.is-active .broadcast-slide-media{transform:scale(1.075)}
+.broadcast-slide.zoom-out .broadcast-slide-media{transform:scale(1.075)}
+.broadcast-slide.zoom-out.is-active .broadcast-slide-media{transform:scale(1)}
+.broadcast-slide[data-broadcast-fit="contain"] .broadcast-slide-media{object-fit:contain;background:#181715}
+.broadcast-slide-caption{bottom:18px}
+@media(max-width:520px){.broadcast-slide-stage{aspect-ratio:1.08/1}}
+@media(prefers-reduced-motion:reduce){.broadcast-slide,.broadcast-slide-media{transition:none!important;transform:none!important}}
+</style></head><body>
+<div class="topline"><div class="topline-inner"><span>Creative vision. <strong>Made in Ghana.</strong></span><div class="top-contact"><a href="mailto:filmbyfbi@gmail.com">filmbyfbi@gmail.com</a><span>Accra, Ghana</span></div></div></div>
+<header class="site-header"><div class="header-inner"><a class="brand" href="index.html" aria-label="Film Beyond Imagination home"><img class="brand-logo" src="/media/assets/fbi-logo.png" alt="FBI — Film Beyond Imagination"><span class="brand-definition">Film Beyond Imagination</span></a><nav class="main-nav" aria-label="Main navigation"><a class="nav-link" href="index.html">Home</a><a class="nav-link" href="about.html">About</a><a class="nav-link" href="portfolio.html">Portfolio</a><a class="nav-link active" href="team.html">Team</a><a class="nav-link" href="insights.html">Insights</a><a class="nav-link" href="contact.html">Contact</a></nav><div class="header-actions"><a class="header-tv" href="https://live.fbigh.com/tv" aria-label="Watch FBI TV in a new tab"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.3"></circle><path d="M8 6.3 14 10l-6 3.7z"></path></svg><span class="header-tv-label">Watch TV</span></a><a class="header-cta" href="contact.html">Request a quote <span>↗</span></a></div><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button></div></header>
+<main><section class="page-hero team-landing-hero"><div class="page-hero-grid"><div><h1 class="display">Our Team</h1><div class="breadcrumb"><a href="index.html">HOME</a><span>/</span>OUR TEAM</div></div><div class="page-media team-wall" data-team-wall role="region" aria-roledescription="carousel" aria-label="Production, broadcast and technology team slideshow"><div class="team-wall-layer is-active" data-team-wall-layer><img class="team-wall-backdrop" src="/media/assets/team/production-team-01.jpg" alt="" aria-hidden="true"><img class="team-wall-photo" src="/media/assets/team/production-team-01.jpg" alt="" aria-hidden="true" fetchpriority="high"></div><div class="team-wall-layer" data-team-wall-layer><img class="team-wall-backdrop" src="" alt="" aria-hidden="true"><img class="team-wall-photo" src="" alt="" aria-hidden="true"></div><div class="team-wall-overlay" aria-hidden="true"></div><span class="team-wall-caption page-media-caption" data-team-wall-caption aria-live="off">Production crew · on location</span><span class="team-wall-count" data-team-wall-count aria-live="off">01 / 18</span><div class="team-wall-controls" role="group" aria-label="Team slideshow controls"><button type="button" data-team-wall-prev aria-label="Previous team photo">‹</button><button type="button" class="team-wall-toggle" data-team-wall-toggle aria-label="Pause slideshow" aria-pressed="true">Pause</button><button type="button" data-team-wall-next aria-label="Next team photo">›</button></div></div></div></section>
+<section class="content-band paper"><div class="wrap"><div class="section-heading"><div class="eyebrow">A collaborative crew</div><h2 class="display">Creative by nature. <em>Reliable by design.</em></h2><p>Meet the people behind our productions. We’ll keep adding more team moments as new work comes in.</p></div><div class="profile-grid"><article class="profile-card production-profile-card"><div class="production-slideshow" data-production-slideshow aria-label="Production team photo slideshow"><div class="production-slide-stage"><img class="production-slide-image is-active" src="/media/assets/team/production-team-01.jpg" alt="Two FBI production crew members preparing on location" fetchpriority="high"><img class="production-slide-image" src="" alt="" aria-hidden="true"><div class="production-slide-shade" aria-hidden="true"></div><div class="production-slide-caption" data-production-caption aria-live="polite">Production crew · on location</div><span class="production-slide-count" data-production-count aria-live="polite">01 / 04</span></div><div class="production-slide-controls"><button type="button" data-production-prev aria-label="Previous production team photo">‹</button><button type="button" class="production-slide-toggle" data-production-toggle aria-pressed="true">Pause slideshow</button><button type="button" data-production-next aria-label="Next production team photo">›</button></div></div><h3>Production team</h3><p>Film, photography and post-production</p></article><article class="profile-card broadcast-profile-card"><div class="broadcast-slideshow" data-broadcast-slideshow aria-label="Broadcast team photo slideshow"><div class="broadcast-slide-stage"><div class="broadcast-slide is-active" data-broadcast-slide data-broadcast-index="0" data-caption="Broadcast crew · coordinating live production" aria-hidden="false"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-01.jpg" alt="Three broadcast crew members coordinating a live production" fetchpriority="high"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="1" data-caption="Broadcast crew · on comms" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-02.jpg" alt="Broadcast crew members communicating during an event"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="2" data-caption="Camera operator · live coverage" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-03.jpg" alt="Camera operator filming an event"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="3" data-caption="Camera operator · production floor" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-04.jpg" alt="Camera operator preparing equipment at an event"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="4" data-caption="Broadcast team · preparing the shoot" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-05.jpg" alt="Broadcast crew preparing a camera setup with event staff"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="5" data-caption="Live broadcast · control room" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-06.jpg" alt="Live broadcast control room with multiple production monitors"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="6" data-caption="Behind the scenes · broadcast crew" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-07.jpg" alt="Broadcast team member at work behind a camera"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="7" data-caption="Broadcast crew · event coordination" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-08.jpg" alt="Broadcast crew working together during an event"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="8" data-caption="Live production · camera control" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-09.jpg" alt="Live production camera control monitor and operator console"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="9" data-broadcast-fit="contain" data-caption="Broadcast coverage · event setup" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-10.jpg" alt="Wide view of a live event broadcast setup"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="10" data-caption="Camera operator · event coverage" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-11.jpg" alt="Camera operator filming among event guests"></div><div class="broadcast-slide" data-broadcast-slide data-broadcast-index="11" data-broadcast-fit="contain" data-caption="Camera operator · Resurrection Sunday" aria-hidden="true"><img class="broadcast-slide-media" src="/media/assets/team/broadcast/broadcast-team-12.jpg" alt="Camera operator filming at Resurrection Sunday"></div><div class="production-slide-shade" aria-hidden="true"></div><div class="production-slide-caption broadcast-slide-caption" data-broadcast-caption aria-live="polite">Broadcast crew · coordinating live production</div><span class="production-slide-count" data-broadcast-count aria-live="polite">01 / 12</span></div><div class="production-slide-controls"><button type="button" data-broadcast-prev aria-label="Previous broadcast team photo">‹</button><button type="button" class="production-slide-toggle" data-broadcast-toggle aria-pressed="true">Pause slideshow</button><button type="button" data-broadcast-next aria-label="Next broadcast team photo">›</button></div></div><h3>Broadcast team</h3><p>Live events and broadcast</p></article><article class="profile-card technology-profile-card"><div class="technology-slideshow" data-technology-slideshow aria-label="Technology team photo and video slideshow"><div class="technology-slide-stage"><div class="technology-slide is-active" data-technology-slide aria-hidden="false"><img src="/media/assets/team/technology/technology-team-01.jpeg" alt="Technology team member during a technical briefing" fetchpriority="high"></div><div class="technology-slide" data-technology-slide aria-hidden="true"><img src="/media/assets/team/technology/technology-team-02.jpeg" alt="Technology team member working at a network equipment rack"></div><div class="technology-slide" data-technology-slide aria-hidden="true"><video muted playsinline controls preload="metadata" aria-label="Technology team video 1"><source src="/media/assets/team/technology/technology-team-03.mp4" type="video/mp4"></video></div><div class="technology-slide" data-technology-slide aria-hidden="true"><video muted playsinline controls preload="metadata" aria-label="Technology team video 2"><source src="/media/assets/team/technology/technology-team-04.mp4" type="video/mp4"></video></div><div class="technology-slide" data-technology-slide aria-hidden="true"><video muted playsinline controls preload="metadata" aria-label="Technology team video 3"><source src="/media/assets/team/technology/technology-team-05.mp4" type="video/mp4"></video></div><div class="technology-slide" data-technology-slide aria-hidden="true"><video muted playsinline controls preload="metadata" aria-label="Technology team video 4"><source src="/media/assets/team/technology/technology-team-06.mp4" type="video/mp4"></video></div><div class="production-slide-shade" aria-hidden="true"></div><div class="production-slide-caption technology-slide-caption" data-technology-caption aria-live="polite">Technology team · at work</div><span class="production-slide-count" data-technology-count aria-live="polite">01 / 06</span></div><div class="production-slide-controls"><button type="button" data-technology-prev aria-label="Previous technology team item">‹</button><button type="button" class="production-slide-toggle" data-technology-toggle aria-pressed="true">Pause slideshow</button><button type="button" data-technology-next aria-label="Next technology team item">›</button></div></div><h3>Technology team</h3><p>Security, connectivity and support</p></article></div></div></section>
+<section class="cta-band"><div class="wrap cta-inner"><div><div class="eyebrow">Work with our team</div><h2 class="display">Let's start with <em>your idea.</em></h2></div><a class="button button-gold" href="contact.html">Talk to FBI <span>↗</span></a></div></section></main>
+<footer class="site-footer"><div class="footer-inner"><div class="footer-top"><div class="footer-brand"><a class="brand" href="index.html"><img class="brand-logo" src="/media/assets/fbi-logo.png" alt="FBI — Film Beyond Imagination"><span class="brand-definition">Film Beyond Imagination</span></a><p>Creative stories and connected technology from a Ghanaian team with a point of view.</p></div><div class="footer-col"><h3>Explore FBI</h3><div class="footer-links"><a href="about.html">About</a><a href="portfolio.html">Portfolio</a><a href="team.html">Team</a><a href="insights.html">Insights</a></div></div><div class="footer-col"><h3>Contact FBI</h3><a href="mailto:filmbyfbi@gmail.com">filmbyfbi@gmail.com</a><a href="tel:+233257407350">+233 25 740 7350</a><p>Accra, Ghana</p></div></div><div class="footer-bottom"><span>© 2026 Film Beyond Imagination. All rights reserved.</span><span>Accra, Ghana · Made with imagination.</span></div></div></footer><script src="site.js"></script><script>
+(function(){
+  const gallery=document.querySelector('[data-production-slideshow]');
+  if(!gallery)return;
+  const slides=[
+    {src:'/media/assets/team/production-team-01.jpg',alt:'Two FBI production crew members preparing on location',caption:'Production crew · on location',position:'center 44%'},
+    {src:'/media/assets/team/production-team-02.jpg',alt:'FBI production team member at an event',caption:'Production team · event coverage',position:'center 34%'},
+    {src:'/media/assets/team/production-team-03.jpg',alt:'Camera operator working behind the scenes',caption:'Camera team · behind the scenes',position:'center 38%'},
+    {src:'/media/assets/team/production-team-04.jpg',alt:'FBI camera operator filming an event',caption:'Production crew · camera operation',position:'center 38%'}
+  ];
+  const images=Array.from(gallery.querySelectorAll('.production-slide-image'));
+  const caption=gallery.querySelector('[data-production-caption]');
+  const count=gallery.querySelector('[data-production-count]');
+  const toggle=gallery.querySelector('[data-production-toggle]');
+  let current=0,activeSlot=0,timer=null;
+  function warm(index){const preload=new Image();preload.src=slides[index].src}
+  function show(index){
+    const nextIndex=(index+slides.length)%slides.length;
+    if(nextIndex===current)return;
+    const slot=1-activeSlot,nextImage=images[slot],oldImage=images[activeSlot],slide=slides[nextIndex];
+    nextImage.classList.remove('is-active');
+    nextImage.alt=slide.alt;
+    nextImage.style.objectPosition=slide.position;
+    nextImage.setAttribute('aria-hidden','false');
+    let done=false;
+    const reveal=function(){if(done)return;done=true;oldImage.classList.remove('is-active');oldImage.setAttribute('aria-hidden','true');nextImage.classList.add('is-active');activeSlot=slot;current=nextIndex;caption.textContent=slide.caption;count.textContent=String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');warm((current+1)%slides.length)};
+    nextImage.onload=reveal;
+    nextImage.onerror=function(){nextImage.onerror=null;show(nextIndex+1)};
+    if(nextImage.getAttribute('src')===slide.src&&nextImage.complete&&nextImage.naturalWidth){reveal()}else{nextImage.src=slide.src}
+  }
+  function start(manual){if(timer||(!manual&&window.matchMedia('(prefers-reduced-motion: reduce)').matches))return;timer=window.setInterval(function(){if(!document.hidden)show(current+1)},6200);toggle.textContent='Pause slideshow';toggle.setAttribute('aria-pressed','true')}
+  function pause(){window.clearInterval(timer);timer=null;toggle.textContent='Play slideshow';toggle.setAttribute('aria-pressed','false')}
+  gallery.querySelector('[data-production-prev]').addEventListener('click',function(){show(current-1)});
+  gallery.querySelector('[data-production-next]').addEventListener('click',function(){show(current+1)});
+  toggle.addEventListener('click',function(){timer?pause():start(true)});
+  warm(1);
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){toggle.textContent='Play slideshow';toggle.setAttribute('aria-pressed','false')}else{start(false)}
+})();
+</script><script>
+(function(){
+  const gallery=document.querySelector('[data-technology-slideshow]');
+  if(!gallery)return;
+  const slides=Array.from(gallery.querySelectorAll('[data-technology-slide]'));
+  const caption=gallery.querySelector('[data-technology-caption]');
+  const count=gallery.querySelector('[data-technology-count]');
+  const toggle=gallery.querySelector('[data-technology-toggle]');
+  const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  let current=0,timer=null,playing=false;
+  function clearTimer(){window.clearTimeout(timer);timer=null}
+  function schedule(delay){clearTimer();timer=window.setTimeout(function(){if(playing)activate(current+1)},delay)}
+  function playCurrent(){
+    const video=slides[current].querySelector('video');
+    if(!video){schedule(6200);return}
+    video.muted=true;
+    try{video.currentTime=0}catch(error){}
+    const result=video.play();
+    if(result&&typeof result.then==='function'){
+      result.then(function(){if(!playing)return;const duration=video.duration;if(Number.isFinite(duration)&&duration>0)schedule(duration*1000+2500)}).catch(function(){if(playing)schedule(12000)});
+    }else{schedule(12000)}
+  }
+  function activate(index){
+    clearTimer();
+    current=(index+slides.length)%slides.length;
+    slides.forEach(function(slide,i){
+      slide.classList.toggle('is-active',i===current);
+      slide.setAttribute('aria-hidden',i===current?'false':'true');
+      const video=slide.querySelector('video');
+      if(video&&i!==current){video.pause();try{video.currentTime=0}catch(error){}}
+    });
+    const video=slides[current].querySelector('video');
+    caption.textContent=video?'Technology team · project footage':'Technology team · '+(current===0?'technical briefing':'network installation');
+    count.textContent=String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+    if(playing)playCurrent();
+  }
+  slides.forEach(function(slide,i){
+    const video=slide.querySelector('video');
+    if(video)video.addEventListener('ended',function(){if(playing&&current===i)activate(current+1)});
+  });
+  function start(manual){
+    if(playing||(!manual&&motion.matches))return;
+    playing=true;toggle.textContent='Pause slideshow';toggle.setAttribute('aria-pressed','true');playCurrent();
+  }
+  function pause(){
+    playing=false;clearTimer();
+    slides.forEach(function(slide){const video=slide.querySelector('video');if(video)video.pause()});
+    toggle.textContent='Play slideshow';toggle.setAttribute('aria-pressed','false');
+  }
+  gallery.querySelector('[data-technology-prev]').addEventListener('click',function(){activate(current-1)});
+  gallery.querySelector('[data-technology-next]').addEventListener('click',function(){activate(current+1)});
+  toggle.addEventListener('click',function(){playing?pause():start(true)});
+  document.addEventListener('visibilitychange',function(){if(document.hidden){clearTimer();const video=slides[current].querySelector('video');if(video)video.pause()}else if(playing)playCurrent()});
+  if(motion.matches){toggle.textContent='Play slideshow';toggle.setAttribute('aria-pressed','false')}else{start(false)}
+})();</script><script>
+(function(){
+  const gallery=document.querySelector('[data-broadcast-slideshow]');
+  if(!gallery)return;
+  const slides=Array.from(gallery.querySelectorAll('[data-broadcast-slide]'));
+  const caption=gallery.querySelector('[data-broadcast-caption]');
+  const count=gallery.querySelector('[data-broadcast-count]');
+  const toggle=gallery.querySelector('[data-broadcast-toggle]');
+  const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  let current=0,timer=null,playing=false;
+  function clearTimer(){window.clearTimeout(timer);timer=null}
+  function schedule(){clearTimer();timer=window.setTimeout(function(){if(playing&&!document.hidden)activate(current+1)},6200)}
+  function activate(index){
+    clearTimer();
+    current=(index+slides.length)%slides.length;
+    slides.forEach(function(slide,i){
+      slide.classList.toggle('is-active',i===current);
+      slide.classList.toggle('zoom-out',i%2===1);
+      slide.setAttribute('aria-hidden',i===current?'false':'true');
+    });
+    caption.textContent=slides[current].dataset.caption;
+    count.textContent=String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+    if(playing&&!document.hidden)schedule();
+  }
+  function start(manual){
+    if(playing||(!manual&&motion.matches))return;
+    playing=true;toggle.textContent='Pause slideshow';toggle.setAttribute('aria-pressed','true');schedule();
+  }
+  function pause(){
+    playing=false;clearTimer();toggle.textContent='Play slideshow';toggle.setAttribute('aria-pressed','false');
+  }
+  gallery.querySelector('[data-broadcast-prev]').addEventListener('click',function(){activate(current-1)});
+  gallery.querySelector('[data-broadcast-next]').addEventListener('click',function(){activate(current+1)});
+  toggle.addEventListener('click',function(){playing?pause():start(true)});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)clearTimer();else if(playing)schedule()});
+  if(motion.matches){toggle.textContent='Play slideshow';toggle.setAttribute('aria-pressed','false')}else{start(false)}
+})();
+</script><a class="floating-whatsapp" href="https://wa.me/233257407350?text=Hello%20FBI%2C%20I%27d%20like%20to%20ask%20about%20a%20project." aria-label="Chat with FBI on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 11.7a8.2 8.2 0 0 1-12.1 7.2L4 20l1.1-4.1a8.2 8.2 0 1 1 15.2-4.2Z"></path><path d="M9 8.6c-.2.4-.5.7-.5 1.1 0 .9 1.2 2.7 2.4 3.7 1.2 1 2.7 1.8 3.5 1.8.4 0 .8-.3 1.1-.6l.6-.8-2-1.3-.8.8c-.7-.3-1.5-.9-2-1.5l.6-.9-1.4-1.9z"></path></svg><span>WhatsApp</span></a><script>
+(function(){
+  const wall=document.querySelector('[data-team-wall]');
+  if(!wall)return;
+  const items=[
+    {src:'/media/assets/team/production-team-01.jpg',caption:'Production crew · on location',alt:'Production crew preparing for a shoot'},
+    {src:'/media/assets/team/production-team-02.jpg',caption:'Production team · event coverage',alt:'Production team member working at an event',fit:'contain'},
+    {src:'/media/assets/team/production-team-03.jpg',caption:'Camera team · behind the scenes',alt:'Camera operator working behind the scenes'},
+    {src:'/media/assets/team/production-team-04.jpg',caption:'Production crew · camera operation',alt:'Production crew member filming on location'},
+    {src:'/media/assets/team/broadcast/broadcast-team-01.jpg',caption:'Broadcast crew · coordinating live production',alt:'Broadcast crew coordinating a live production'},
+    {src:'/media/assets/team/broadcast/broadcast-team-02.jpg',caption:'Broadcast crew · on comms',alt:'Broadcast crew members communicating during an event'},
+    {src:'/media/assets/team/broadcast/broadcast-team-03.jpg',caption:'Camera operator · live coverage',alt:'Camera operator filming an event'},
+    {src:'/media/assets/team/broadcast/broadcast-team-04.jpg',caption:'Camera operator · production floor',alt:'Camera operator preparing equipment at an event'},
+    {src:'/media/assets/team/broadcast/broadcast-team-05.jpg',caption:'Broadcast team · preparing the shoot',alt:'Broadcast crew preparing a camera setup with event staff'},
+    {src:'/media/assets/team/broadcast/broadcast-team-06.jpg',caption:'Live broadcast · control room',alt:'Live broadcast control room with production monitors'},
+    {src:'/media/assets/team/broadcast/broadcast-team-07.jpg',caption:'Behind the scenes · broadcast crew',alt:'Broadcast team member working behind a camera'},
+    {src:'/media/assets/team/broadcast/broadcast-team-08.jpg',caption:'Broadcast crew · event coordination',alt:'Broadcast crew working together during an event'},
+    {src:'/media/assets/team/broadcast/broadcast-team-09.jpg',caption:'Live production · camera control',alt:'Live production camera control monitor and operator console'},
+    {src:'/media/assets/team/broadcast/broadcast-team-10.jpg',caption:'Broadcast coverage · event setup',alt:'Wide view of a live event broadcast setup'},
+    {src:'/media/assets/team/broadcast/broadcast-team-11.jpg',caption:'Camera operator · event coverage',alt:'Camera operator filming among event guests'},
+    {src:'/media/assets/team/broadcast/broadcast-team-12.jpg',caption:'Camera operator · Resurrection Sunday',alt:'Camera operator filming at Resurrection Sunday',fit:'contain'},
+    {src:'/media/assets/team/technology/technology-team-01.jpeg',caption:'Technology team · technical briefing',alt:'Technology team member in a hard hat during a technical briefing',fit:'contain'},
+    {src:'/media/assets/team/technology/technology-team-02.jpeg',caption:'Technology team · network installation',alt:'Technician working on communications cabling',fit:'contain'}
+  ];
+  const layers=Array.from(wall.querySelectorAll('[data-team-wall-layer]'));
+  const caption=wall.querySelector('[data-team-wall-caption]');
+  const count=wall.querySelector('[data-team-wall-count]');
+  const toggle=wall.querySelector('[data-team-wall-toggle]');
+  const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  let current=0,activeLayer=0,timer=null,playing=false;
+  function preload(index){const image=new Image();image.src=items[(index+items.length)%items.length].src}
+  function updateText(){caption.textContent=items[current].caption;count.textContent=String(current+1).padStart(2,'0')+' / '+String(items.length).padStart(2,'0')}
+  function clearTimer(){window.clearTimeout(timer);timer=null}
+  function schedule(){clearTimer();if(playing&&!document.hidden)timer=window.setTimeout(function(){go(current+1)},7200)}
+  function go(index){
+    clearTimer();current=(index+items.length)%items.length;
+    const nextLayer=1-activeLayer,item=items[current],layer=layers[nextLayer];
+    layer.classList.remove('is-active','is-reverse');
+    layer.dataset.fit=item.fit||'cover';
+    if(current%2)layer.classList.add('is-reverse');
+    const photo=layer.querySelector('.team-wall-photo'),backdrop=layer.querySelector('.team-wall-backdrop');
+    photo.src=item.src;backdrop.src=item.src;photo.alt=item.alt;
+    requestAnimationFrame(function(){layers[activeLayer].classList.remove('is-active');layer.classList.add('is-active')});
+    activeLayer=nextLayer;updateText();preload(current+1);schedule();
+  }
+  function start(manual){if(playing||(!manual&&motion.matches))return;playing=true;toggle.textContent='Pause';toggle.setAttribute('aria-label','Pause slideshow');toggle.setAttribute('aria-pressed','true');schedule()}
+  function pause(){playing=false;clearTimer();toggle.textContent='Play';toggle.setAttribute('aria-label','Play slideshow');toggle.setAttribute('aria-pressed','false')}
+  wall.querySelector('[data-team-wall-prev]').addEventListener('click',function(){go(current-1)});
+  wall.querySelector('[data-team-wall-next]').addEventListener('click',function(){go(current+1)});
+  toggle.addEventListener('click',function(){playing?pause():start(true)});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)clearTimer();else if(playing)schedule()});
+  updateText();preload(1);
+  if(motion.matches){toggle.textContent='Play';toggle.setAttribute('aria-label','Play slideshow');toggle.setAttribute('aria-pressed','false')}else start(false);
+})();
+</script>
+</body></html>
+
+
