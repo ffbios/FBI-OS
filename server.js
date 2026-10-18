@@ -345,7 +345,7 @@ const server = http.createServer(async (req, res) => {
     fs.stat(file, (statErr, stats) => {
       if (statErr || !stats.isFile()) return json(res, 404, { ok: false, error: "Not found." });
       const size = stats.size;
-      const match = /^bytes=(\\d*)-(\\d*)$/.exec(String(req.headers.range));
+      const match = /^bytes=(\d*)-(\d*)$/.exec(String(req.headers.range));
       if (!match) {
         res.writeHead(416, { "Content-Range": "bytes */" + size, "Accept-Ranges": "bytes" });
         return res.end();
