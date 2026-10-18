@@ -327,3 +327,18 @@
 @keyframes droneKenBurnsOut{0%{transform:scale(1.09)}50%{transform:scale(1.045)}100%{transform:scale(1.02)}}
 [data-portfolio-preview]{object-fit:cover}
 @media(prefers-reduced-motion:reduce){.drone-slide.is-active .drone-image,.cctv-slide-image.cctv-zoom-in,.cctv-slide-image.cctv-zoom-out{animation:none!important}}
+
+/* Quote form on the contact page */
+.quote-form{display:grid;gap:18px;margin-top:26px}
+.quote-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.quote-form label{display:grid;gap:8px;color:var(--gold-dark);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.quote-form label span{color:var(--muted);font-weight:500;letter-spacing:.08em;text-transform:none}
+.quote-form input,.quote-form select,.quote-form textarea{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid var(--line);border-radius:0;background:var(--paper);color:var(--ink);font:400 15px/1.5 "DM Sans",Arial,sans-serif;letter-spacing:0;text-transform:none}
+.quote-form textarea{resize:vertical;min-height:130px}
+.quote-form input:focus,.quote-form select:focus,.quote-form textarea:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.quote-form :user-invalid{border-color:var(--red)}
+.quote-actions{display:flex;flex-wrap:wrap;gap:12px}
+.quote-actions .button{cursor:pointer}
+.quote-error{margin:0;color:var(--red)!important;font-weight:600}
+.quote-note{margin:0;font-size:12px!important}
+@media(max-width:600px){.quote-row{grid-template-columns:1fr}.quote-actions .button{flex:1 1 100%}}.contact-list{align-content:start}

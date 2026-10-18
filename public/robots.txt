@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin
+Disallow: /api/
+Disallow: /insights.html
+
+Sitemap: https://fbigh.com/sitemap.xml

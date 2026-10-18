@@ -277,5 +277,32 @@
     document.addEventListener('visibilitychange',()=>previewVideos.forEach(video=>{if(document.hidden||motion.matches)video.pause();else if(visible.get(video))playPreview(video)}));
     motion.addEventListener?.('change',event=>previewVideos.forEach(video=>{if(event.matches)video.pause();else if(visible.get(video))playPreview(video)}));
   }
-})();
 
+  // Quote form: no backend needed, it hands the brief to WhatsApp or email.
+  const quoteForm = document.querySelector('[data-quote-form]');
+  if (quoteForm) {
+    const quoteError = quoteForm.querySelector('[data-quote-error]');
+    quoteForm.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!quoteForm.checkValidity()) {
+        quoteError.hidden = false;
+        quoteForm.querySelector(':invalid')?.focus();
+        return;
+      }
+      quoteError.hidden = true;
+      const data = new FormData(quoteForm);
+      const field = name => String(data.get(name) || '').trim();
+      const details = [
+        ['Name', 'name'], ['Phone', 'phone'], ['Email', 'email'],
+        ['Service', 'service'], ['Date', 'date'], ['Location', 'location']
+      ].filter(([, name]) => field(name)).map(([label, name]) => label + ': ' + field(name));
+      const text = ['Hello FBI, I would like a quote.', '', ...details, '', field('message')].join('\n');
+      const via = event.submitter?.value || 'whatsapp';
+      if (via === 'email') {
+        location.href = 'mailto:filmbyfbi@gmail.com?subject=' + encodeURIComponent('Quote request: ' + field('service')) + '&body=' + encodeURIComponent(text);
+      } else {
+        window.open('https://wa.me/233257407350?text=' + encodeURIComponent(text), '_blank', 'noopener');
+      }
+    });
+  }
+})();

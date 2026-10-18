@@ -27,7 +27,9 @@ const mime = {
   ".jpeg": "image/jpeg",
   ".webp": "image/webp",
   ".ico": "image/x-icon",
-  ".mp4": "video/mp4"
+  ".mp4": "video/mp4",
+  ".xml": "application/xml; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8"
 };
 
 function json(res, status, body, extraHeaders = {}) {
@@ -500,11 +502,11 @@ const server = http.createServer(async (req, res) => {
 
   fs.readFile(file, (err, data) => {
     if (err) {
-      // Keep the corporate homepage fallback limited to browser navigation, not APIs.
+      // Missing pages get a real 404 page (not the homepage), so search engines don't index duplicates.
       if (pathname.startsWith("/api/")) return json(res, 404, { ok: false, error: "Not found." });
-      fs.readFile(path.join(root, "index.html"), (fallbackErr, fallbackData) => {
-        if (fallbackErr) return json(res, 500, { ok: false, error: "Website unavailable." });
-        res.writeHead(200, { "Content-Type": mime[".html"], "Cache-Control": "no-cache", "X-Content-Type-Options": "nosniff" });
+      fs.readFile(path.join(root, "404.html"), (fallbackErr, fallbackData) => {
+        if (fallbackErr) return json(res, 404, { ok: false, error: "Not found." });
+        res.writeHead(404, { "Content-Type": mime[".html"], "Cache-Control": "no-cache", "X-Content-Type-Options": "nosniff" });
         res.end(fallbackData);
       });
       return;
