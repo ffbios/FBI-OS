@@ -1,0 +1,8 @@
+# The Admin Hub depends on the Railway server for authentication and APIs.
+# Redirect the whole admin path so the browser stays on the backend origin.
+/admin https://fbi-gh-website-production.up.railway.app/admin/ 302
+/admin/ https://fbi-gh-website-production.up.railway.app/admin/ 302
+/admin/* https://fbi-gh-website-production.up.railway.app/admin/:splat 302
+
+# Keep health checks available while the public pages are served statically.
+/health https://fbi-gh-website-production.up.railway.app/health 302
