@@ -31,12 +31,12 @@
   const cctvSlideshow = document.querySelector('[data-cctv-slideshow]');
   if (cctvSlideshow) {
     const photos = [
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/cctv/cctv-installation-01.jpg', alt: 'Two dome cameras installed on the exterior of a building', caption: 'Exterior camera coverage' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/cctv/cctv-installation-02.jpg', alt: 'Dome camera installed at an interior ceiling corner', caption: 'Indoor camera installation' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/cctv/cctv-installation-03.jpg', alt: 'Monitor displaying a live CCTV camera view', caption: 'Live camera monitoring' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/cctv/cctv-installation-04.jpg', alt: 'Two dome cameras mounted on an exterior wall', caption: 'Building perimeter coverage' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/cctv/cctv-installation-05.jpg', alt: 'Wide view of a building with exterior security cameras', caption: 'Wide-angle exterior coverage' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/cctv/cctv-installation-06.jpg', alt: 'Close view of two mounted dome security cameras', caption: 'Camera hardware detail' }
+      { src: '/media/assets/images/cctv/cctv-installation-01.jpg', alt: 'Two dome cameras installed on the exterior of a building', caption: 'Exterior camera coverage' },
+      { src: '/media/assets/images/cctv/cctv-installation-02.jpg', alt: 'Dome camera installed at an interior ceiling corner', caption: 'Indoor camera installation' },
+      { src: '/media/assets/images/cctv/cctv-installation-03.jpg', alt: 'Monitor displaying a live CCTV camera view', caption: 'Live camera monitoring' },
+      { src: '/media/assets/images/cctv/cctv-installation-04.jpg', alt: 'Two dome cameras mounted on an exterior wall', caption: 'Building perimeter coverage' },
+      { src: '/media/assets/images/cctv/cctv-installation-05.jpg', alt: 'Wide view of a building with exterior security cameras', caption: 'Wide-angle exterior coverage' },
+      { src: '/media/assets/images/cctv/cctv-installation-06.jpg', alt: 'Close view of two mounted dome security cameras', caption: 'Camera hardware detail' }
     ];
     const image = cctvSlideshow.querySelector('[data-slide-image]');
     const caption = cctvSlideshow.querySelector('[data-slide-caption]');
@@ -97,13 +97,13 @@
   const portfolioHero = document.querySelector('[data-portfolio-hero]');
   if (portfolioHero) {
     const slides = [
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/portfolio-hero/portfolio-hero-01.jpg', alt: 'Film editor working at a computer workstation', caption: 'At the edit suite' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/portfolio-hero/portfolio-hero-02.jpg', alt: 'Live broadcast control room with production monitors', caption: 'Live broadcast control room' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/portfolio-hero/portfolio-hero-03.jpg', alt: 'Two people seated together at a community meeting', caption: 'Stories from the community' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/portfolio-hero/portfolio-hero-04.jpg', alt: 'Camera operator filming an event with a professional camera', caption: 'Camera operator on assignment' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/portfolio-hero/portfolio-hero-05.jpg', alt: 'Production crew coordinating a live broadcast at their workstations', caption: 'Production crew at work' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/portfolio-hero/portfolio-hero-06.jpg', alt: 'Broadcast team monitoring a production together', caption: 'Keeping the live feed in focus' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/portfolio-hero/portfolio-hero-07.jpg', alt: 'Camera operator working behind a cinema camera', caption: 'Behind the camera' }
+      { src: '/media/assets/images/portfolio-hero/portfolio-hero-01.jpg', alt: 'Film editor working at a computer workstation', caption: 'At the edit suite' },
+      { src: '/media/assets/images/portfolio-hero/portfolio-hero-02.jpg', alt: 'Live broadcast control room with production monitors', caption: 'Live broadcast control room' },
+      { src: '/media/assets/images/portfolio-hero/portfolio-hero-03.jpg', alt: 'Two people seated together at a community meeting', caption: 'Stories from the community' },
+      { src: '/media/assets/images/portfolio-hero/portfolio-hero-04.jpg', alt: 'Camera operator filming an event with a professional camera', caption: 'Camera operator on assignment' },
+      { src: '/media/assets/images/portfolio-hero/portfolio-hero-05.jpg', alt: 'Production crew coordinating a live broadcast at their workstations', caption: 'Production crew at work' },
+      { src: '/media/assets/images/portfolio-hero/portfolio-hero-06.jpg', alt: 'Broadcast team monitoring a production together', caption: 'Keeping the live feed in focus' },
+      { src: '/media/assets/images/portfolio-hero/portfolio-hero-07.jpg', alt: 'Camera operator working behind a cinema camera', caption: 'Behind the camera' }
     ];
     const layers = [...portfolioHero.querySelectorAll('[data-portfolio-hero-layer]')];
     const caption = portfolioHero.querySelector('[data-portfolio-hero-caption]');
@@ -170,13 +170,13 @@
   const broadcastSlideshow = document.querySelector('[data-broadcast-slideshow]');
   if (broadcastSlideshow) {
     const photos = [
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/broadcast/broadcast-01.jpg', alt: 'Film editor working at a computer workstation', caption: 'At the edit suite' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/broadcast/broadcast-02.jpg', alt: 'Live broadcast control room with production monitors', caption: 'Live broadcast control room' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/broadcast/broadcast-03.jpg', alt: 'Production director guiding a live broadcast from the control room', caption: 'Directing the live production' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/broadcast/broadcast-04.jpg', alt: 'Camera operator filming an event with a professional camera', caption: 'Camera operator on assignment' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/broadcast/broadcast-05.jpg', alt: 'Camera operator filming an event from behind a professional camera', caption: 'Capturing the moment' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/broadcast/broadcast-06.jpg', alt: 'Broadcast team monitoring the live feed together', caption: 'Monitoring the live feed' },
-      { src: 'https://fbi-gh-website-production.up.railway.app/media/assets/images/broadcast/broadcast-07.jpg', alt: 'Camera operator working behind a cinema camera', caption: 'Behind the camera' }
+      { src: '/media/assets/images/broadcast/broadcast-01.jpg', alt: 'Film editor working at a computer workstation', caption: 'At the edit suite' },
+      { src: '/media/assets/images/broadcast/broadcast-02.jpg', alt: 'Live broadcast control room with production monitors', caption: 'Live broadcast control room' },
+      { src: '/media/assets/images/broadcast/broadcast-03.jpg', alt: 'Production director guiding a live broadcast from the control room', caption: 'Directing the live production' },
+      { src: '/media/assets/images/broadcast/broadcast-04.jpg', alt: 'Camera operator filming an event with a professional camera', caption: 'Camera operator on assignment' },
+      { src: '/media/assets/images/broadcast/broadcast-05.jpg', alt: 'Camera operator filming an event from behind a professional camera', caption: 'Capturing the moment' },
+      { src: '/media/assets/images/broadcast/broadcast-06.jpg', alt: 'Broadcast team monitoring the live feed together', caption: 'Monitoring the live feed' },
+      { src: '/media/assets/images/broadcast/broadcast-07.jpg', alt: 'Camera operator working behind a cinema camera', caption: 'Behind the camera' }
     ];
     const layers = [...broadcastSlideshow.querySelectorAll('[data-broadcast-layer]')];
     const caption = broadcastSlideshow.querySelector('[data-broadcast-caption]');
