@@ -1,0 +1,109 @@
+[
+ {
+  "slug": "fbi-flyer-01-cctv",
+  "img": "/assets/cctv/cctv-installation-01.jpg",
+  "pos": "50% 50%",
+  "kicker": "CCTV &amp; SECURITY SYSTEMS",
+  "head": "See your business<br>from anywhere.",
+  "bullets": [
+   "Shops, offices, warehouses, schools",
+   "Live view on your phone, night vision",
+   "Free site survey, maintenance plans"
+  ]
+ },
+ {
+  "slug": "fbi-flyer-02-live-streaming",
+  "img": "/media/assets/team/broadcast/broadcast-team-06.jpg",
+  "pos": "40% 50%",
+  "kicker": "LIVE STREAMING &amp; BROADCAST",
+  "head": "Bring everyone<br>into the room.",
+  "bullets": [
+   "Weddings, churches, conferences, concerts",
+   "Multi-camera HD to YouTube &amp; Facebook",
+   "Backup internet, recording delivered"
+  ]
+ },
+ {
+  "slug": "fbi-flyer-03-funeral-streaming",
+  "img": "/media/assets/images/home-gallery/home-gallery-03.jpg",
+  "pos": "50% 45%",
+  "kicker": "FUNERAL LIVE STREAMING",
+  "head": "No one misses<br>the farewell.",
+  "bullets": [
+   "Private HD stream for family abroad",
+   "Tribute videos, photography, recording",
+   "Respectful, discreet crew"
+  ]
+ },
+ {
+  "slug": "fbi-flyer-04-video-production",
+  "img": "/media/assets/team/production-team-03.jpg",
+  "pos": "45% 40%",
+  "kicker": "VIDEO PRODUCTION",
+  "head": "Stories that<br>move people.",
+  "bullets": [
+   "Films, commercials, documentaries",
+   "Music videos and corporate films",
+   "From script to final edit"
+  ]
+ },
+ {
+  "slug": "fbi-flyer-05-photography",
+  "img": "/media/assets/images/home-gallery/home-gallery-06.jpg",
+  "pos": "50% 35%",
+  "kicker": "PHOTOGRAPHY",
+  "head": "Moments,<br>made to last.",
+  "bullets": [
+   "Events, portraits and products",
+   "Corporate and brand shoots",
+   "Fast, professionally edited delivery"
+  ]
+ },
+ {
+  "slug": "fbi-flyer-06-drone",
+  "img": "/assets/drone/drone-aerial.jpg",
+  "pos": "50% 50%",
+  "kicker": "DRONE CINEMATOGRAPHY",
+  "head": "See the<br>bigger picture.",
+  "bullets": [
+   "Events, estates, construction progress",
+   "Aerial video and photography",
+   "Experienced, safety-first pilots"
+  ]
+ },
+ {
+  "slug": "fbi-flyer-07-smart-homes",
+  "img": "/media/assets/images/home-gallery/home-gallery-01.jpg",
+  "pos": "50% 30%",
+  "kicker": "SMART HOME &amp; OFFICE AUTOMATION",
+  "head": "Control it all<br>from your phone.",
+  "bullets": [
+   "Lights, AC, curtains and gates",
+   "Smart locks and video intercom",
+   "Free design and quotation"
+  ]
+ },
+ {
+  "slug": "fbi-flyer-08-access-networking",
+  "img": "/assets/cctv/cctv-installation-03.jpg",
+  "pos": "35% 50%",
+  "kicker": "ACCESS CONTROL &amp; NETWORKING",
+  "head": "Secure every door.<br>Connect every room.",
+  "bullets": [
+   "Access control with entry logs",
+   "Wi-Fi and structured networking",
+   "Electric fencing, maintenance plans"
+  ]
+ },
+ {
+  "slug": "fbi-flyer-09-bulk-sms",
+  "img": null,
+  "kicker": "BULK SMS &amp; SENDER ID",
+  "head": "Reach thousands<br>in seconds.",
+  "bullets": [
+   "Messages from your own brand name",
+   "Campaigns, reminders and alerts",
+   "Churches, schools and businesses"
+  ]
+ }
+]
