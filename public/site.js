@@ -299,7 +299,7 @@
       const text = ['Hello FBI, I would like a quote.', '', ...details, '', field('message')].join('\n');
       const via = event.submitter?.value || 'whatsapp';
       if (via === 'email') {
-        location.href = 'mailto:filmbyfbi@gmail.com?subject=' + encodeURIComponent('Quote request: ' + field('service')) + '&body=' + encodeURIComponent(text);
+        location.href = 'mailto:info@fbigh.com?subject=' + encodeURIComponent('Quote request: ' + field('service')) + '&body=' + encodeURIComponent(text);
       } else {
         window.open('https://wa.me/233257407350?text=' + encodeURIComponent(text), '_blank', 'noopener');
       }

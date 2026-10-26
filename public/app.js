@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Copy-to-clipboard for email addresses: do not launch a local mail application.
   document.querySelectorAll("[data-copy-email]").forEach(button => {
     button.addEventListener("click", async () => {
-      const email = button.dataset.copyEmail || "filmbyfbi@gmail.com";
+      const email = button.dataset.copyEmail || "info@fbigh.com";
       let copied = false;
       try {
         if (navigator.clipboard && window.isSecureContext) {
