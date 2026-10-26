@@ -28,6 +28,7 @@ const mime = {
   ".webp": "image/webp",
   ".ico": "image/x-icon",
   ".mp4": "video/mp4",
+  ".pdf": "application/pdf",
   ".xml": "application/xml; charset=utf-8",
   ".txt": "text/plain; charset=utf-8"
 };
