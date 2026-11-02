@@ -92,13 +92,11 @@ test("Admin Hub server-side authentication and access control", async t => {
     assert.ok(payload.time);
   });
 
-  await t.test("registry contains non-sensitive directory data", async () => {
+  await t.test("registry rejects unauthenticated users", async () => {
     const response = await fetch(base + "/api/ecosystem/registry");
     const payload = await response.json();
-    assert.equal(response.status, 200);
-    assert.ok(Array.isArray(payload.systems));
-    assert.ok(payload.systems.some(item => item.id === "invoice-studio"));
-    assert.equal(JSON.stringify(payload).includes("passwordHash"), false);
+    assert.equal(response.status, 401);
+    assert.equal(payload.systems, undefined);
   });
 
   await t.test("session endpoint rejects unauthenticated users", async () => {
