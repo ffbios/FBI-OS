@@ -316,6 +316,11 @@ const server = http.createServer(async (req, res) => {
   const requestId = crypto.randomUUID();
   res.setHeader("X-Request-Id", requestId);
   res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Strict-Transport-Security", "max-age=31536000");
+  res.setHeader("X-Frame-Options", "SAMEORIGIN");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  res.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'");
 
   let url;
   try {
@@ -355,6 +360,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (pathname === "/api/ecosystem/registry" && req.method === "GET") {
+    if (!requirePermission(req, res, "system:read")) return;
     fs.readFile(REGISTRY_PATH, "utf8", (err, data) => {
       if (err) return json(res, 503, { ok: false, error: "Ecosystem registry is unavailable." });
       try {
