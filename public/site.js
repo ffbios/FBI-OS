@@ -278,11 +278,18 @@
     motion.addEventListener?.('change',event=>previewVideos.forEach(video=>{if(event.matches)video.pause();else if(visible.get(video))playPreview(video)}));
   }
 
-  // Quote form: no backend needed, it hands the brief to WhatsApp or email.
+  // Quote form: saves the request to Invoice Studio, then offers WhatsApp or email too.
+  // If Invoice Studio cannot be reached, those two links are how the request gets through.
   const quoteForm = document.querySelector('[data-quote-form]');
   if (quoteForm) {
     const quoteError = quoteForm.querySelector('[data-quote-error]');
-    quoteForm.addEventListener('submit', event => {
+    const quoteStatus = quoteForm.querySelector('[data-quote-status]');
+    const quoteLinks = quoteForm.querySelector('[data-quote-links]');
+    const quoteSend = quoteForm.querySelector('[data-quote-send]');
+    const quoteButton = quoteSend.querySelector('button');
+    const enquiryUrl = quoteForm.dataset.enquiryUrl || 'https://invoice.fbigh.com/api/public/enquiry';
+    const startedAt = Date.now();
+    quoteForm.addEventListener('submit', async event => {
       event.preventDefault();
       if (!quoteForm.checkValidity()) {
         quoteError.hidden = false;
@@ -297,12 +304,36 @@
         ['Service', 'service'], ['Date', 'date'], ['Location', 'location']
       ].filter(([, name]) => field(name)).map(([label, name]) => label + ': ' + field(name));
       const text = ['Hello FBI, I would like a quote.', '', ...details, '', field('message')].join('\n');
-      const via = event.submitter?.value || 'whatsapp';
-      if (via === 'email') {
-        location.href = 'mailto:info@fbigh.com?subject=' + encodeURIComponent('Quote request: ' + field('service')) + '&body=' + encodeURIComponent(text);
+      quoteForm.querySelector('[data-quote-whatsapp]').href = 'https://wa.me/233257407350?text=' + encodeURIComponent(text);
+      quoteForm.querySelector('[data-quote-email]').href = 'mailto:info@fbigh.com?subject=' + encodeURIComponent('Quote request: ' + field('service')) + '&body=' + encodeURIComponent(text);
+      quoteButton.disabled = true;
+      quoteStatus.hidden = false;
+      quoteStatus.textContent = 'Sending your request…';
+      quoteLinks.hidden = true;
+      let saved = false, problem = '';
+      try {
+        const response = await fetch(enquiryUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: field('name'), phone: field('phone'), email: field('email'), service: field('service'), date: field('date'), location: field('location'), message: field('message'), website: field('website'), startedAt }),
+          signal: AbortSignal.timeout(8000)
+        });
+        const result = await response.json().catch(() => ({}));
+        saved = response.ok && result.ok === true;
+        if (response.status === 400 && result.error) problem = result.error;
+      } catch (error) { saved = false; }
+      quoteButton.disabled = false;
+      if (saved) {
+        quoteSend.hidden = true;
+        quoteStatus.textContent = 'Thank you. We have your request and the FBI team will get back to you. If you would like to, you can also message us now:';
+      } else if (problem) {
+        quoteStatus.textContent = problem;
+        quoteLinks.hidden = true;
+        return;
       } else {
-        window.open('https://wa.me/233257407350?text=' + encodeURIComponent(text), '_blank', 'noopener');
+        quoteStatus.textContent = 'We could not save your request just now. Please send it to us on WhatsApp or by email:';
       }
+      quoteLinks.hidden = false;
     });
   }
 })();
